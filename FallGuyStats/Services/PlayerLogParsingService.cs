@@ -33,7 +33,7 @@ namespace FallGuyStats.Services
             }
 
             //watch that file
-            var changeToken = _fileProvider.Watch(playerLogFileLocation).RegisterChangeCallback(
+            _fileProvider.Watch(playerLogFileLocation).RegisterChangeCallback(
                 file =>
                 {
                     _logger.LogInformation("Change Detected");

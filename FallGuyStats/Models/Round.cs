@@ -10,13 +10,18 @@ namespace FallGuyStats.Models
         public int Id { get; set; }
         public int EpisodeId { get; set; }
         public string RoundType { get; set; }
-        public bool Qualified{ get; set; }
-        public int Position{ get; set; }
+        public bool Qualified { get; set; }
+        public int Position { get; set; }
         public int Kudos { get; set; }
         public int Fame { get; set; }
         public int BonusTier { get; set; }
         public int BonusKudos { get; set; }
         public int BonusFame { get; set; }
         public string Badge { get; set; }
+
+        public static SortedDictionary<string, string> RoundTypeMap = new SortedDictionary<string, string>
+        {
+            { "gauntlet_01", "Hit Parade" }
+        };
     }
 }
