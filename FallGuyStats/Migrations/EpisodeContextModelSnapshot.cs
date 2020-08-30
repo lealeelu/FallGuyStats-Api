@@ -68,8 +68,8 @@ namespace FallGuyStats.Migrations
                     b.Property<bool>("Qualified")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("RoundTypeId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("RoundType")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 

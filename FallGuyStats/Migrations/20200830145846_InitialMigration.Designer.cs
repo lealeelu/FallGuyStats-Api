@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FallGuyStats.Migrations
 {
     [DbContext(typeof(EpisodeContext))]
-    [Migration("20200830055625_InitialMigration")]
+    [Migration("20200830145846_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,8 +70,8 @@ namespace FallGuyStats.Migrations
                     b.Property<bool>("Qualified")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("RoundTypeId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("RoundType")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 

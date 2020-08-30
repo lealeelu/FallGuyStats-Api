@@ -9,7 +9,7 @@ namespace FallGuyStats.Models
     {
         public int Id { get; set; }
         public int EpisodeId { get; set; }
-        public int RoundTypeId { get; set; }
+        public string RoundType { get; set; }
         public bool Qualified{ get; set; }
         public int Position{ get; set; }
         public int Kudos { get; set; }

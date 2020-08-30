@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using FallGuyStats.Data;
+using Microsoft.Extensions.FileProviders;
+using FallGuyStats.Services;
 
 namespace FallGuyStats
 {
@@ -20,9 +22,12 @@ namespace FallGuyStats
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging();
             services.AddDbContext<EpisodeContext>(opt =>
                 opt.UseSqlite(Configuration.GetConnectionString("FallGuysDb")));
             services.AddControllers();
+            services.AddScoped<PlayerLogParsingService>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -28,7 +28,7 @@ namespace FallGuyStats.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     EpisodeId = table.Column<int>(nullable: false),
-                    RoundTypeId = table.Column<int>(nullable: false),
+                    RoundType = table.Column<string>(nullable: true),
                     Qualified = table.Column<bool>(nullable: false),
                     Position = table.Column<int>(nullable: false),
                     Kudos = table.Column<int>(nullable: false),
