@@ -14,9 +14,9 @@ namespace FallGuyStats.Controllers
     [ApiController]
     public class EpisodesController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly EpisodeContext _context;
 
-        public EpisodesController(ApplicationDbContext context)
+        public EpisodesController(EpisodeContext context)
         {
             _context = context;
         }
