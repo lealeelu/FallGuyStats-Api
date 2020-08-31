@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FallGuyStats.Data;
 using FallGuyStats.Models;
+using FallGuyStats.Services;
 
 namespace FallGuyStats.Controllers
 {
@@ -15,9 +16,14 @@ namespace FallGuyStats.Controllers
     public class EpisodesController : ControllerBase
     {
         private readonly EpisodeContext _context;
+        private readonly PlayerLogParsingService _parsingService;
 
-        public EpisodesController(EpisodeContext context)
+        public EpisodesController(
+            EpisodeContext context,
+            PlayerLogParsingService parsingService
+        )
         {
+            _parsingService = parsingService;
             _context = context;
         }
 
@@ -25,6 +31,7 @@ namespace FallGuyStats.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Episode>>> GetEpisodes()
         {
+            _parsingService.CheckPlayerLog();
             return await _context.Episodes.ToListAsync();
         }
 

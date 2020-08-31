@@ -4,11 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace FallGuyStats.LogParser
+namespace FallGuyStats.Tools
 {
     public class LogParser
     {
-        Episode episode = new Episode();
+
+        public static Episode GetEpisodeFromLog()
+        {
+            List<string> logData = ReadLogData();
+            string latestEpisodeData = GetNewestEpisodeData(logData);
+            return GetLastEpisodeStats(latestEpisodeData);
+        } 
 
         public static string previousTimestamp
             { get; set; } = "none";
