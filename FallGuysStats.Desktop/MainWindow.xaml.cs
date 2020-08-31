@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FallGuyStats.Models;
+using FallGuyStats.Tools;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -15,9 +17,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using FallGuyStats.LogParser;
-using FallGuyStats.Models;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace FallGuysStats.Desktop
 {
@@ -30,6 +29,8 @@ namespace FallGuysStats.Desktop
         {
             InitializeComponent();
         }
+
+        CancellationTokenSource cts = new CancellationTokenSource();
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -59,7 +60,7 @@ namespace FallGuysStats.Desktop
         {
             boxResults.Text = "";
             string latestEpisodeData = PrimaryTextBox.Text;
-            Episode latestEpisode = LogParser.GetLastEpisodeStats(latestEpisodeData);
+            Episode latestEpisode = LogParser.GetEpisodeStats(latestEpisodeData);
 
             boxResults.Text += $"Kudos Earned: {latestEpisode.Kudos}\r\n";
             boxResults.Text += $"Fame Earned: {latestEpisode.Fame}\r\n";
@@ -114,11 +115,17 @@ namespace FallGuysStats.Desktop
             boxResults.Text += $"\r\n";
         }
 
-        private void btnAutoMonitor_Click(object sender, RoutedEventArgs e)
+        private async void btnAutoMonitor_Click(object sender, RoutedEventArgs e)
         {
-            if (tbStatus.Text == "Currently Running")
-            {
 
+            if (tbStatus.Text == "Currently running")
+            {
+                cts.Cancel();
+                tbStatus.Text = "Not running";
+                btnAutoMonitor.Content = "Start Monitoring";
+                btnLatestEpStats.IsEnabled = true;
+                btnRoundData.IsEnabled = true;
+                cbRound.IsEnabled = true;
             }
             else
             {
@@ -127,7 +134,12 @@ namespace FallGuysStats.Desktop
                 btnLatestEpStats.IsEnabled = false;
                 btnRoundData.IsEnabled = false;
                 cbRound.IsEnabled = false;
+
+                string currentUserAppData = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string playerLogDataPath = currentUserAppData + "Low\\Mediatonic\\FallGuys_client\\Player.log";
+                boxResults.Text = await LogMonitor.ReadTail(playerLogDataPath, cts.Token);
             }
         }
+
     }
 }

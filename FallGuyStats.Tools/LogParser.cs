@@ -4,14 +4,59 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace FallGuyStats.LogParser
+namespace FallGuyStats.Tools
 {
     public class LogParser
     {
-        Episode episode = new Episode();
+        public static List<Episode> GetEpisodesFromLog()
+        {
+            List<Episode> allEpisodes = new List<Episode>();
+            List<string> playerLogData = ReadLogData();
+            List<string> episodeStartingPoints = playerLogData.FindAll(episodeDTO => episodeDTO.Contains("[CompletedEpisodeDto]"));
+            string regexPattern = @"(\d+:\d+:\d+.\d+):";
+            Regex timestampRegex = new Regex(regexPattern);
+            foreach (string episodeStartingPoint in episodeStartingPoints)
+            {
+                Episode episodeToAdd = new Episode();
+                Match episodeTimestamp = timestampRegex.Match(episodeStartingPoint);
+                string episodeData = "";        
+                int startIndex = playerLogData.IndexOf(episodeStartingPoint);
+                int endIndex = playerLogData.FindIndex(startIndex+1, timestamp => timestampRegex.Match(regexPattern).Success);
+                for (int i = startIndex; i <= endIndex; i++)
+                {
+                    episodeData += playerLogData[i];
+                }
+                episodeToAdd = GetEpisodeStats(episodeData);
+                episodeToAdd.Timestamp = episodeTimestamp.Groups[1].Value;
 
-        public static string previousTimestamp
+                List<Round> roundsInEpisode = new List<Round>();
+                for (int i = 0; i < episodeToAdd.RoundsPlayed; i++)
+                {
+                    Round evaluatedRound = GetRoundStats(episodeData, i);
+                    roundsInEpisode.Add(evaluatedRound);
+                }
+                allEpisodes.Add(episodeToAdd);
+            }
+            return allEpisodes;
+        }
+        public static Episode GetEpisodeFromLog()
+        {
+            List<string> logData = ReadLogData();
+            string latestEpisodeData = GetNewestEpisodeData(logData);
+            return GetEpisodeStats(latestEpisodeData);
+        } 
+
+        public static string PreviousEpisodeTimestamp
             { get; set; } = "none";
+
+        public static string CurrentRoundTimeStamp
+        { get; set; } = "none";
+
+        public static string LatestEpisode
+        { get; set; } = "none";
+
+        public static string CurrentRoundDisplayName
+        { get; set; } = "none";
         // read file
         // check if there is a new DTO detected via timestamp
         // parse DTO and store in DB
@@ -32,8 +77,8 @@ namespace FallGuyStats.LogParser
             Regex timestampRegex = new Regex(regexPattern);
             Match episodeTimestamp = timestampRegex.Match(newestEpisodeDto);
             string newestEpisodeData = "";
-            if (previousTimestamp != episodeTimestamp.Groups[1].Value) {
-                previousTimestamp = episodeTimestamp.Groups[1].Value;
+            if (PreviousEpisodeTimestamp != episodeTimestamp.Groups[1].Value) {
+                PreviousEpisodeTimestamp = episodeTimestamp.Groups[1].Value;
                 int startIndex = playerLogData.IndexOf(newestEpisodeDto);
                 int endIndex = playerLogData.FindLastIndex(badgeReport => badgeReport.StartsWith("> BadgeId:"));
                 for (int i = startIndex; i <= endIndex; i++)
@@ -49,7 +94,7 @@ namespace FallGuyStats.LogParser
             return newestEpisodeData;
         }
 
-        public static Episode GetLastEpisodeStats(string lastEpisodeData)
+        public static Episode GetEpisodeStats(string lastEpisodeData)
         {
             Episode episodeResults = new Episode();
 
@@ -178,6 +223,41 @@ namespace FallGuyStats.LogParser
             roundResults.Badge = badgeId;
 
             return roundResults;
+        }
+
+        public static string GetCurrentRound(List<string> playerLogData)
+        {
+            List<string> roundStartingPoints = playerLogData.FindAll(roundStart => roundStart.Contains("[StateGameLoading] Finished"));
+            string currentRoundLog = roundStartingPoints.Last();
+            string regexPattern = @"(\d+:\d+:\d+.\d+):";
+            Regex timestampRegex = new Regex(regexPattern);
+            Match roundTimestamp = timestampRegex.Match(currentRoundLog);
+
+            List<string> episodeStartingPoints = playerLogData.FindAll(episodeDTO => episodeDTO.Contains("[CompletedEpisodeDto]"));
+            string newestEpisodeDto = episodeStartingPoints.Last();
+            Match episodeTimestamp = timestampRegex.Match(newestEpisodeDto);
+            if (DateTime.Parse(episodeTimestamp.Groups[1].Value) < DateTime.Parse(roundTimestamp.Groups[1].Value))
+            {
+                if (CurrentRoundTimeStamp != roundTimestamp.Groups[1].Value)
+                {
+                    CurrentRoundTimeStamp = roundTimestamp.Groups[1].Value;
+                    string roundRegexPattern = @"(round_.+)";
+                    Regex roundNameRegex = new Regex(roundRegexPattern);
+                    Match roundName = roundNameRegex.Match(currentRoundLog);
+                    var roundTypeMap = Round.RoundTypeMap;
+                    CurrentRoundDisplayName = roundTypeMap[roundName.Groups[1].Value.Replace("round_", "")];
+                }
+                else
+                {
+                    // Latest data is already returned; do nothing
+                }
+                return CurrentRoundDisplayName;
+            }
+            else
+            {
+                CurrentRoundDisplayName = "No Active Round";
+                return CurrentRoundDisplayName;
+            }
         }
     }
 }
