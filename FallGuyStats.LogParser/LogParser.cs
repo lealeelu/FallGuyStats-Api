@@ -20,7 +20,6 @@ namespace FallGuyStats.LogParser
         {
             string currentUserAppData = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             string playerLogDataPath = currentUserAppData + "Low\\Mediatonic\\FallGuys_client\\Player.log";
-            // string playerLogData = System.IO.File.ReadAllText(playerLogDataPath);
             List<string> playerLogData = System.IO.File.ReadLines(playerLogDataPath).ToList();
             return playerLogData;
         }

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FallGuyStats.LogParser;
 using FallGuyStats.Models;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace FallGuysStats.Desktop
 {
@@ -108,6 +112,22 @@ namespace FallGuysStats.Desktop
             boxResults.Text += $"Kudos Earned: {roundResult.Kudos}\r\n";
             boxResults.Text += $"Badge Earned: {roundResult.Badge}\r\n";
             boxResults.Text += $"\r\n";
+        }
+
+        private void btnAutoMonitor_Click(object sender, RoutedEventArgs e)
+        {
+            if (tbStatus.Text == "Currently Running")
+            {
+
+            }
+            else
+            {
+                tbStatus.Text = "Currently running";
+                btnAutoMonitor.Content = "Stop Monitoring";
+                btnLatestEpStats.IsEnabled = false;
+                btnRoundData.IsEnabled = false;
+                cbRound.IsEnabled = false;
+            }
         }
     }
 }
