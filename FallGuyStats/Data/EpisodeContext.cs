@@ -10,8 +10,8 @@ namespace FallGuyStats.Data
 
         }
 
-        public DbSet<Episode> Episodes { get; set; }
-        public DbSet<Round> Rounds { get; set; }
+        public DbSet<EpisodeModel> Episodes { get; set; }
+        public DbSet<RoundModel> Rounds { get; set; }
 
     }
 }

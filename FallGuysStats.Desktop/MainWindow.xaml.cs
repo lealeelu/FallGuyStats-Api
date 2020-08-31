@@ -60,7 +60,7 @@ namespace FallGuysStats.Desktop
         {
             boxResults.Text = "";
             string latestEpisodeData = PrimaryTextBox.Text;
-            Episode latestEpisode = LogParser.GetEpisodeStats(latestEpisodeData);
+            EpisodeModel latestEpisode = LogParser.GetEpisodeStats(latestEpisodeData);
 
             boxResults.Text += $"Kudos Earned: {latestEpisode.Kudos}\r\n";
             boxResults.Text += $"Fame Earned: {latestEpisode.Fame}\r\n";
@@ -82,16 +82,16 @@ namespace FallGuysStats.Desktop
                     string latestEpisodeData = PrimaryTextBox.Text;
                     int searchIndex = 0;
                     int roundCount = 0;
-                    List<Round> resultsAllRounds = new List<Round>();
+                    List<RoundModel> resultsAllRounds = new List<RoundModel>();
                     while ((searchIndex = latestEpisodeData.IndexOf("[Round", searchIndex)) != -1)
                     {
-                        Round currentRound = LogParser.GetRoundStats(latestEpisodeData, roundCount);
+                        RoundModel currentRound = LogParser.GetRoundStats(latestEpisodeData, roundCount);
                         roundCount++;
                         searchIndex++;
                         resultsAllRounds.Add(currentRound);
                     }
                     roundCount = 1;
-                    foreach (Round roundResult in resultsAllRounds)
+                    foreach (RoundModel roundResult in resultsAllRounds)
                     {
                         DisplayRoundData(roundResult, roundCount);
                         roundCount++;
@@ -100,12 +100,12 @@ namespace FallGuysStats.Desktop
                 else
                 {
                     int roundNumber = Int32.Parse(cbRound.SelectedItem.ToString()) - 1;
-                    Round roundResult = LogParser.GetRoundStats(PrimaryTextBox.Text, roundNumber);
+                    RoundModel roundResult = LogParser.GetRoundStats(PrimaryTextBox.Text, roundNumber);
                     DisplayRoundData(roundResult, roundNumber);
                 }
             }
         }
-        private void DisplayRoundData(Round roundResult, int roundNumber)
+        private void DisplayRoundData(RoundModel roundResult, int roundNumber)
         {
             boxResults.Text += $"Round {roundNumber}\r\n";
             boxResults.Text += $"Round Type: {roundResult.RoundType}\r\n";

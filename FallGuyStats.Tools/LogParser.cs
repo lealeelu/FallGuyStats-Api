@@ -1,4 +1,4 @@
-﻿using FallGuyStats.Models;
+﻿using FallGuyStats.Objects.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +8,16 @@ namespace FallGuyStats.Tools
 {
     public class LogParser
     {
-        public static List<Episode> GetEpisodesFromLog()
+        public static List<EpisodeEntity> GetEpisodesFromLog()
         {
-            List<Episode> allEpisodes = new List<Episode>();
+            List<EpisodeEntity> allEpisodes = new List<EpisodeEntity>();
             List<string> playerLogData = ReadLogData();
             List<string> episodeStartingPoints = playerLogData.FindAll(episodeDTO => episodeDTO.Contains("[CompletedEpisodeDto]"));
             string regexPattern = @"(\d+:\d+:\d+.\d+):";
             Regex timestampRegex = new Regex(regexPattern);
             foreach (string episodeStartingPoint in episodeStartingPoints)
             {
-                Episode episodeToAdd = new Episode();
+                EpisodeEntity episodeToAdd = new EpisodeEntity();
                 Match episodeTimestamp = timestampRegex.Match(episodeStartingPoint);
                 string episodeData = "";        
                 int startIndex = playerLogData.IndexOf(episodeStartingPoint);
@@ -29,17 +29,17 @@ namespace FallGuyStats.Tools
                 episodeToAdd = GetEpisodeStats(episodeData);
                 episodeToAdd.Timestamp = episodeTimestamp.Groups[1].Value;
 
-                List<Round> roundsInEpisode = new List<Round>();
+                List<RoundEntity> roundsInEpisode = new List<RoundEntity>();
                 for (int i = 0; i < episodeToAdd.RoundsPlayed; i++)
                 {
-                    Round evaluatedRound = GetRoundStats(episodeData, i);
+                    RoundEntity evaluatedRound = GetRoundStats(episodeData, i);
                     roundsInEpisode.Add(evaluatedRound);
                 }
                 allEpisodes.Add(episodeToAdd);
             }
             return allEpisodes;
         }
-        public static Episode GetEpisodeFromLog()
+        public static EpisodeEntity GetEpisodeFromLog()
         {
             List<string> logData = ReadLogData();
             string latestEpisodeData = GetNewestEpisodeData(logData);
@@ -94,9 +94,9 @@ namespace FallGuyStats.Tools
             return newestEpisodeData;
         }
 
-        public static Episode GetEpisodeStats(string lastEpisodeData)
+        public static EpisodeEntity GetEpisodeStats(string lastEpisodeData)
         {
-            Episode episodeResults = new Episode();
+            EpisodeEntity episodeResults = new EpisodeEntity();
 
             int episodeKudosIndex = lastEpisodeData.IndexOf("Kudos:");
             string episodeKudosStateText = lastEpisodeData.Substring(episodeKudosIndex, 10);
@@ -128,9 +128,9 @@ namespace FallGuyStats.Tools
             return episodeResults;
         }
 
-        public static Round GetRoundStats(string roundData, int roundNumber)
+        public static RoundEntity GetRoundStats(string roundData, int roundNumber)
         {
-            Round roundResults = new Round();
+            RoundEntity roundResults = new RoundEntity();
 
             // Get round type
             int roundIndex = roundData.IndexOf($"[Round {roundNumber}");
@@ -244,7 +244,7 @@ namespace FallGuyStats.Tools
                     string roundRegexPattern = @"(round_.+)";
                     Regex roundNameRegex = new Regex(roundRegexPattern);
                     Match roundName = roundNameRegex.Match(currentRoundLog);
-                    var roundTypeMap = Round.RoundTypeMap;
+                    var roundTypeMap = RoundEntity.RoundTypeMap;
                     CurrentRoundDisplayName = roundTypeMap[roundName.Groups[1].Value.Replace("round_", "")];
                 }
                 else

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Text;
 
-namespace FallGuyStats.Models
+namespace FallGuyStats.Objects.Entities
 {
-    public class Round
+    public class RoundEntity
     {
         public int Id { get; set; }
         public int EpisodeId { get; set; }

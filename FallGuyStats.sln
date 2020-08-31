@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FallGuyStats", "FallGuyStat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FallGuysStats.Desktop", "FallGuysStats.Desktop\FallGuysStats.Desktop.csproj", "{0BDF56D3-D978-4423-8903-CDBD7B5CBB1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FallGuyStats.Models", "FallGuyStats.Models\FallGuyStats.Models.csproj", "{96968128-B966-4726-9182-46A07B74E221}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FallGuyStats.Objects", "FallGuyStats.Models\FallGuyStats.Objects.csproj", "{96968128-B966-4726-9182-46A07B74E221}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FallGuyStats.Tools", "FallGuyStats.Tools\FallGuyStats.Tools.csproj", "{E8FBABB0-5C69-4CED-BD15-C6E1D3E478FE}"
 EndProject

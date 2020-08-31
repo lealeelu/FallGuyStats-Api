@@ -29,7 +29,7 @@ namespace FallGuyStats.Controllers
 
         // GET: api/Episodes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Episode>>> GetEpisodes()
+        public async Task<ActionResult<IEnumerable<EpisodeModel>>> GetEpisodes()
         {
             _parsingService.CheckPlayerLog();
             return await _context.Episodes.ToListAsync();
@@ -37,7 +37,7 @@ namespace FallGuyStats.Controllers
 
         // GET: api/Episodes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Episode>> GetEpisode(int id)
+        public async Task<ActionResult<EpisodeModel>> GetEpisode(int id)
         {
             var episode = await _context.Episodes.FindAsync(id);
 
@@ -53,7 +53,7 @@ namespace FallGuyStats.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEpisode(int id, Episode episode)
+        public async Task<IActionResult> PutEpisode(int id, EpisodeModel episode)
         {
             if (id != episode.Id)
             {
@@ -85,7 +85,7 @@ namespace FallGuyStats.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Episode>> PostEpisode(Episode episode)
+        public async Task<ActionResult<EpisodeModel>> PostEpisode(EpisodeModel episode)
         {
             _context.Episodes.Add(episode);
             await _context.SaveChangesAsync();
@@ -95,7 +95,7 @@ namespace FallGuyStats.Controllers
 
         // DELETE: api/Episodes/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Episode>> DeleteEpisode(int id)
+        public async Task<ActionResult<EpisodeModel>> DeleteEpisode(int id)
         {
             var episode = await _context.Episodes.FindAsync(id);
             if (episode == null)

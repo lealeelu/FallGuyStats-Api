@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FallGuyStats.Models\FallGuyStats.Models.csproj" />
+    <ProjectReference Include="..\FallGuyStats.Models\FallGuyStats.Objects.csproj" />
     <ProjectReference Include="..\FallGuyStats.Tools\FallGuyStats.Tools.csproj" />
   </ItemGroup>
 

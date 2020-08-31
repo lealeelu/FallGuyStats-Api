@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FallGuyStats.Models\FallGuyStats.Models.csproj" />
+    <ProjectReference Include="..\FallGuyStats.Models\FallGuyStats.Objects.csproj" />
   </ItemGroup>
 
 </Project>

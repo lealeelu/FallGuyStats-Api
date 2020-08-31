@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using FallGuyStats.Tools;
 using FallGuyStats.Data;
+using FallGuyStats.Objects.Entities;
 
 namespace FallGuyStats.Services
 {
@@ -31,11 +32,28 @@ namespace FallGuyStats.Services
 
         public void CheckPlayerLog()
         {
-            Episode newEpisode = LogParser.GetEpisodeFromLog();
-            if (newEpisode != null)
+            var newEpisodes = LogParser.GetEpisodesFromLog();
+            foreach (var episode in newEpisodes)
             {
-                _episodeContext.Add(newEpisode);
-            }
+                //check timestamps against db to determine if it is actually a new episode
+
+                //convert entity to model
+                var episodeModel = new EpisodeModel();
+                episodeModel.Crowns = episode.Crowns;
+                //.....
+                
+                //add episode model to db
+                _episodeContext.Episodes.Add(episodeModel);
+                
+                //add round models to db
+                foreach (var round in episode.RoundEntities)
+                {
+                    var roundModel = new RoundModel();
+                    roundModel.EpisodeId = episode.Id;
+                    roundModel.Kudos = round.Kudos;
+                    _episodeContext.Rounds.Add(roundModel);
+                }
+            }            
         }
 
         private void RunFileWatch()

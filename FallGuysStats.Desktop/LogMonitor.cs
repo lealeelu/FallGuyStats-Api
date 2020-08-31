@@ -10,6 +10,7 @@ namespace FallGuysStats.Desktop
 {
     class LogMonitor
     {
+     //TODO move to tools project
         public static async Task<string> ReadTail(string filename, CancellationToken token)
         {
             using (FileStream fs = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
