@@ -5,7 +5,12 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FallGuyStats", "FallGuyStats\FallGuyStats.csproj", "{D6708BF0-95CA-477C-B5D1-2DBF678851A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FallGuyStats.LogParser", "FallGuyStats.LogParser\FallGuyStats.LogParser.csproj", "{FBC32F19-73BE-4F83-8FEA-E1BC4EC9EFDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FallGuyStats.LogParser", "FallGuyStats.LogParser\FallGuyStats.LogParser.csproj", "{FBC32F19-73BE-4F83-8FEA-E1BC4EC9EFDD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D6708BF0-95CA-477C-B5D1-2DBF678851A4} = {D6708BF0-95CA-477C-B5D1-2DBF678851A4}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FallGuysStats.Desktop", "FallGuysStats.Desktop\FallGuysStats.Desktop.csproj", "{0BDF56D3-D978-4423-8903-CDBD7B5CBB1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +26,10 @@ Global
 		{FBC32F19-73BE-4F83-8FEA-E1BC4EC9EFDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBC32F19-73BE-4F83-8FEA-E1BC4EC9EFDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBC32F19-73BE-4F83-8FEA-E1BC4EC9EFDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BDF56D3-D978-4423-8903-CDBD7B5CBB1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BDF56D3-D978-4423-8903-CDBD7B5CBB1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BDF56D3-D978-4423-8903-CDBD7B5CBB1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BDF56D3-D978-4423-8903-CDBD7B5CBB1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

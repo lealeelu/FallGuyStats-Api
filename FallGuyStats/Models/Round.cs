@@ -42,7 +42,7 @@ namespace FallGuyStats.Models
             { "royal_rumble", "Royal Fumble" },
             { "fall_ball_60_players", "Fall Ball" },
             { "jinxed", "Jinxed" },
-            { "unknown5", "Egg Scramble" },
+            { "egg_drop", "Egg Scramble" },
             { "ballhogs", "Hoarders" },
             { "rocknroll", "Rock'n'Roll" },
             { "see_saw", "See Saw" }

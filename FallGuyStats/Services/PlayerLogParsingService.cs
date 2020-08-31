@@ -37,6 +37,7 @@ namespace FallGuyStats.Services
                 file =>
                 {
                     _logger.LogInformation("Change Detected");
+                    // read file
                     // check if there is a new DTO detected via timestamp
                     // parse DTO and store in DB
                     // store new data in DB as an episode

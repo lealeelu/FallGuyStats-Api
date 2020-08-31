@@ -1,0 +1,17 @@
+﻿<Window x:Class="FallGuysStats.Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FallGuysStats.Desktop"
+        mc:Ignorable="d"
+        Title="Fall Guys Stats" Height="450" Width="800" Background="#FF59725D">
+    <Grid>
+        <Button x:Name="getEpisodeData" Content="Get Episode Data" HorizontalAlignment="Left" Margin="34,42,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click"/>
+        <TextBox x:Name="PrimaryTextBox" HorizontalAlignment="Left" Margin="167,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="623" Height="165" IsReadOnly="True"/>
+        <Button x:Name="btnLatestEpStats" Content="Latest Episode Stats" HorizontalAlignment="Left" Margin="22,265,0,0" VerticalAlignment="Top" Width="122" IsEnabled="False" Click="btnLatestEpStats_Click"/>
+        <Button x:Name="btnRoundData" Content="Round Data" HorizontalAlignment="Left" Margin="12,309,0,0" VerticalAlignment="Top" Width="74" Height="35" IsEnabled="False" Click="btnRoundData_Click"/>
+        <ComboBox x:Name="cbRound" HorizontalAlignment="Left" Height="35" Margin="100,309,0,0" VerticalAlignment="Top" Width="53" IsEnabled="False"/>
+        <TextBox x:Name="boxResults" HorizontalAlignment="Left" Height="166" Margin="167,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="623" IsReadOnly="True"/>
+    </Grid>
+</Window>
