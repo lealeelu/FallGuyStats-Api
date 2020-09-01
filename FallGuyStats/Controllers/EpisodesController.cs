@@ -100,6 +100,11 @@ namespace FallGuyStats.Controllers
             }
 
             _context.Episodes.Remove(episode);
+            var roundsToDelete = _context.Rounds.Where<RoundModel>(round => round.EpisodeId == episode.Id);
+            foreach (var round in roundsToDelete)
+            {
+                _context.Rounds.Remove(round);
+            }
             await _context.SaveChangesAsync();
 
             return episode;

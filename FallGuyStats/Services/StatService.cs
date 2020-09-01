@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using System;
 using FallGuyStats.Objects.Entities;
+using FallGuyStats.Objects.DTOs;
 
 namespace FallGuyStats.Services
 {
@@ -23,6 +24,13 @@ namespace FallGuyStats.Services
             _logger = logger;
         }
 
+        public StatDTO GetStats()
+        {
+            CheckPlayerLog();
+            var result = new StatDTO();
+            return result;
+        }
+
         // Check to see if there are any new eps and adds it to db
         public void CheckPlayerLog()
         {
@@ -31,7 +39,7 @@ namespace FallGuyStats.Services
             {
                 //check timestamps against db to determine if it is actually a new episode
                 if (_episodeContext.Episodes.Any(episode => episode.Timestamp == newEpisode.Timestamp)) return;
-                
+
                 //convert entity to model
                 var episodeModel = new EpisodeModel
                 {
@@ -39,6 +47,7 @@ namespace FallGuyStats.Services
                     Fame = newEpisode.Fame,
                     Kudos = newEpisode.Kudos,
                     Timestamp = newEpisode.Timestamp,
+                    Season = newEpisode.Season,
                     Created = DateTime.UtcNow
                 };
 

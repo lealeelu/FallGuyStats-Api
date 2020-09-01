@@ -11,6 +11,7 @@ namespace FallGuyStats.Objects.Entities
         public int Fame { get; set; }
         public int Crowns { get; set; }
         public int RoundsPlayed { get; set; }
+        public int Season { get; set; }
         public List<RoundEntity> RoundEntities { get; set; }
 
         public string Timestamp { get; set; }

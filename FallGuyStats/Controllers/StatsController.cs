@@ -27,25 +27,7 @@ namespace FallGuyStats.Controllers
         [HttpGet]
         public ActionResult<StatDTO> GetStats()
         {
-            _statService.CheckPlayerLog();
-
-            var statDTO = new StatDTO()
-            {
-                TodayStats = new SessionStatDTO
-                {
-                    Crowns = 5,
-                    Episodes = 10,
-                    Cheaters = 1
-                },
-                SeasonStats = new SessionStatDTO
-                {
-                    Crowns = 69,
-                    Episodes = 420,
-                    Cheaters = 42
-                }
-            };
-
-            return statDTO;
+            return _statService.GetStats();
         }
     }
 }

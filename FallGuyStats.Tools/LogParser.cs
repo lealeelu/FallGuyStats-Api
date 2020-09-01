@@ -126,6 +126,7 @@ namespace FallGuyStats.Tools
             episodeResults.Fame = Int32.Parse(episodeFameState.Groups[1].Value);
             episodeResults.Crowns = Int32.Parse(episodeCrownsState.Groups[1].Value);
             episodeResults.RoundsPlayed = roundCount;
+            episodeResults.Season = 1;
             return episodeResults;
         }
 
