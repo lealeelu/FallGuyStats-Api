@@ -142,5 +142,9 @@ namespace FallGuysStats.Desktop
             }
         }
 
+        private void btnAllEpisodes_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

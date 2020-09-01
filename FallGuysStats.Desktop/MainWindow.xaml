@@ -16,5 +16,6 @@
         <Button x:Name="btnAutoMonitor" Content="Start Monitoring" HorizontalAlignment="Left" Margin="33,392,0,0" VerticalAlignment="Top" Click="btnAutoMonitor_Click"/>
         <TextBlock x:Name="tbStatusLabel" HorizontalAlignment="Left" Margin="157,394,0,0" Text="Monitoring Status:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="tbStatus" HorizontalAlignment="Left" Margin="263,394,0,0" Text="Not running" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Button x:Name="btnAllEpisodes" Content="Get All Episode Data" HorizontalAlignment="Left" Margin="23,115,0,0" VerticalAlignment="Top" Width="121" Height="42" Click="btnAllEpisodes_Click"/>
     </Grid>
 </Window>
