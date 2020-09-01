@@ -1,4 +1,5 @@
 ﻿using FallGuyStats.Models;
+using FallGuyStats.Objects.Entities;
 using FallGuyStats.Tools;
 using System;
 using System.Collections.Generic;
@@ -60,7 +61,7 @@ namespace FallGuysStats.Desktop
         {
             boxResults.Text = "";
             string latestEpisodeData = PrimaryTextBox.Text;
-            EpisodeModel latestEpisode = LogParser.GetEpisodeStats(latestEpisodeData);
+            EpisodeEntity latestEpisode = LogParser.GetEpisodeStats(latestEpisodeData);
 
             boxResults.Text += $"Kudos Earned: {latestEpisode.Kudos}\r\n";
             boxResults.Text += $"Fame Earned: {latestEpisode.Fame}\r\n";
@@ -82,16 +83,16 @@ namespace FallGuysStats.Desktop
                     string latestEpisodeData = PrimaryTextBox.Text;
                     int searchIndex = 0;
                     int roundCount = 0;
-                    List<RoundModel> resultsAllRounds = new List<RoundModel>();
+                    List<RoundEntity> resultsAllRounds = new List<RoundEntity>();
                     while ((searchIndex = latestEpisodeData.IndexOf("[Round", searchIndex)) != -1)
                     {
-                        RoundModel currentRound = LogParser.GetRoundStats(latestEpisodeData, roundCount);
+                        RoundEntity currentRound = LogParser.GetRoundStats(latestEpisodeData, roundCount);
                         roundCount++;
                         searchIndex++;
                         resultsAllRounds.Add(currentRound);
                     }
                     roundCount = 1;
-                    foreach (RoundModel roundResult in resultsAllRounds)
+                    foreach (RoundEntity roundResult in resultsAllRounds)
                     {
                         DisplayRoundData(roundResult, roundCount);
                         roundCount++;
@@ -100,12 +101,12 @@ namespace FallGuysStats.Desktop
                 else
                 {
                     int roundNumber = Int32.Parse(cbRound.SelectedItem.ToString()) - 1;
-                    RoundModel roundResult = LogParser.GetRoundStats(PrimaryTextBox.Text, roundNumber);
+                    RoundEntity roundResult = LogParser.GetRoundStats(PrimaryTextBox.Text, roundNumber);
                     DisplayRoundData(roundResult, roundNumber);
                 }
             }
         }
-        private void DisplayRoundData(RoundModel roundResult, int roundNumber)
+        private void DisplayRoundData(RoundEntity roundResult, int roundNumber)
         {
             boxResults.Text += $"Round {roundNumber}\r\n";
             boxResults.Text += $"Round Type: {roundResult.RoundType}\r\n";
