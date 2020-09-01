@@ -9,27 +9,20 @@ using FallGuyStats.Objects.Entities;
 
 namespace FallGuyStats.Services
 {
-    public class PlayerLogParsingService
+    public class StatService
     {
-        private readonly IFileProvider _fileProvider;
         private readonly EpisodeContext _episodeContext;
-        private readonly ILogger<PlayerLogParsingService> _logger;
+        private readonly ILogger<StatService> _logger;
 
-        private string playerLogFileLocation;
-        public PlayerLogParsingService (
-            IConfiguration configuration,
+        public StatService (
             EpisodeContext episodeContext,
-            ILogger<PlayerLogParsingService> logger)
+            ILogger<StatService> logger)
         {
-            //_fileProvider = new PhysicalFileProvider(playerLogFileLocation);
             _episodeContext = episodeContext;
             _logger = logger;
-
-            playerLogFileLocation = configuration.GetValue<string>("PlayerLogFileLocation");
-
-            //RunFileWatch();
         }
 
+        // Check to see if there are any new eps and adds it to db
         public void CheckPlayerLog()
         {
             var newEpisodes = LogParser.GetEpisodesFromLog();
@@ -54,19 +47,6 @@ namespace FallGuyStats.Services
                     _episodeContext.Rounds.Add(roundModel);
                 }
             }            
-        }
-
-        private void RunFileWatch()
-        {
-            //check if file exists first
-            var fileInfo = _fileProvider.GetFileInfo(playerLogFileLocation);
-            if (!fileInfo.Exists)
-            {
-                _logger.LogError($"Couldn't find player log file at: {playerLogFileLocation}\nCheck appsettings.json PlayerLogFileLocation");
-                return;
-            }           
-
-            return;
         }
     }
 }
