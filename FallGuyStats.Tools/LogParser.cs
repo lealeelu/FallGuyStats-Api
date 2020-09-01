@@ -35,6 +35,7 @@ namespace FallGuyStats.Tools
                     RoundEntity evaluatedRound = GetRoundStats(episodeData, i);
                     roundsInEpisode.Add(evaluatedRound);
                 }
+                episodeToAdd.RoundEntities = roundsInEpisode;
                 allEpisodes.Add(episodeToAdd);
             }
             return allEpisodes;
