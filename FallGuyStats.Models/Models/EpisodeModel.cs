@@ -11,7 +11,6 @@ namespace FallGuyStats.Models
         public int Kudos { get; set; }
         public int Fame { get; set; }
         public int Crowns { get; set; }
-        public int RoundsPlayed { get; set; }
 
         public string Timestamp { get; set; }
 

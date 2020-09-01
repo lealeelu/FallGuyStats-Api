@@ -26,7 +26,7 @@ namespace FallGuyStats
             services.AddDbContext<EpisodeContext>(opt =>
                 opt.UseSqlite(Configuration.GetConnectionString("FallGuysDb")));
             services.AddControllers();
-            services.AddScoped<PlayerLogParsingService>();
+            services.AddScoped<StatService>();
             
         }
 

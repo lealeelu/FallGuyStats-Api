@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FallGuyStats.Objects.DTOs;
+using FallGuyStats.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,10 +14,21 @@ namespace FallGuyStats.Controllers
     [ApiController]
     public class StatsController : ControllerBase
     {
+        private readonly StatService _statService;
+
+        public StatsController(
+            StatService statService
+        )
+        {
+            _statService = statService;
+        }
+
         // GET: api/Stats
         [HttpGet]
         public ActionResult<StatDTO> GetStats()
         {
+            _statService.CheckPlayerLog();
+
             var statDTO = new StatDTO()
             {
                 TodayStats = new SessionStatDTO
