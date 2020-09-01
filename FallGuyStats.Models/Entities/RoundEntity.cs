@@ -17,6 +17,7 @@ namespace FallGuyStats.Objects.Entities
         public int BonusKudos { get; set; }
         public int BonusFame { get; set; }
         public string Badge { get; set; }
+        public int RoundsPlayed { get; set; }
 
         public static SortedDictionary<string, string> RoundTypeMap = new SortedDictionary<string, string>
         {

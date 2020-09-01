@@ -1,4 +1,5 @@
 ﻿using FallGuyStats.Models;
+using FallGuyStats.Objects.Entities;
 using FallGuyStats.Tools;
 using System;
 using System.Collections.Generic;
@@ -34,8 +35,8 @@ namespace FallGuysStats.Desktop
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            List<string> logData = LogParser.ReadLogData();
-            string latestEpisodeData = LogParser.GetNewestEpisodeData(logData);
+            var logData = LogParser.ReadLogData();
+            var latestEpisodeData = LogParser.GetNewestEpisodeData(logData);
             if (latestEpisodeData != "")
             {
                 PrimaryTextBox.Text = latestEpisodeData;
@@ -59,8 +60,8 @@ namespace FallGuysStats.Desktop
         private void btnLatestEpStats_Click(object sender, RoutedEventArgs e)
         {
             boxResults.Text = "";
-            string latestEpisodeData = PrimaryTextBox.Text;
-            EpisodeModel latestEpisode = LogParser.GetEpisodeStats(latestEpisodeData);
+            var latestEpisodeData = PrimaryTextBox.Text;
+            var latestEpisode = LogParser.GetEpisodeStats(latestEpisodeData);
 
             boxResults.Text += $"Kudos Earned: {latestEpisode.Kudos}\r\n";
             boxResults.Text += $"Fame Earned: {latestEpisode.Fame}\r\n";
@@ -79,19 +80,19 @@ namespace FallGuysStats.Desktop
                 boxResults.Text = "";
                 if (cbRound.SelectedItem.ToString() == "All")
                 {
-                    string latestEpisodeData = PrimaryTextBox.Text;
-                    int searchIndex = 0;
-                    int roundCount = 0;
-                    List<RoundModel> resultsAllRounds = new List<RoundModel>();
+                    var latestEpisodeData = PrimaryTextBox.Text;
+                    var searchIndex = 0;
+                    var roundCount = 0;
+                    var resultsAllRounds = new List<RoundEntity>();
                     while ((searchIndex = latestEpisodeData.IndexOf("[Round", searchIndex)) != -1)
                     {
-                        RoundModel currentRound = LogParser.GetRoundStats(latestEpisodeData, roundCount);
+                        var currentRound = LogParser.GetRoundStats(latestEpisodeData, roundCount);
                         roundCount++;
                         searchIndex++;
                         resultsAllRounds.Add(currentRound);
                     }
                     roundCount = 1;
-                    foreach (RoundModel roundResult in resultsAllRounds)
+                    foreach (var roundResult in resultsAllRounds)
                     {
                         DisplayRoundData(roundResult, roundCount);
                         roundCount++;
@@ -99,13 +100,13 @@ namespace FallGuysStats.Desktop
                 }
                 else
                 {
-                    int roundNumber = Int32.Parse(cbRound.SelectedItem.ToString()) - 1;
-                    RoundModel roundResult = LogParser.GetRoundStats(PrimaryTextBox.Text, roundNumber);
+                    var roundNumber = Int32.Parse(cbRound.SelectedItem.ToString()) - 1;
+                    var roundResult = LogParser.GetRoundStats(PrimaryTextBox.Text, roundNumber);
                     DisplayRoundData(roundResult, roundNumber);
                 }
             }
         }
-        private void DisplayRoundData(RoundModel roundResult, int roundNumber)
+        private void DisplayRoundData(RoundEntity roundResult, int roundNumber)
         {
             boxResults.Text += $"Round {roundNumber}\r\n";
             boxResults.Text += $"Round Type: {roundResult.RoundType}\r\n";
@@ -135,8 +136,8 @@ namespace FallGuysStats.Desktop
                 btnRoundData.IsEnabled = false;
                 cbRound.IsEnabled = false;
 
-                string currentUserAppData = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                string playerLogDataPath = currentUserAppData + "Low\\Mediatonic\\FallGuys_client\\Player.log";
+                var currentUserAppData = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                var playerLogDataPath = currentUserAppData + "Low\\Mediatonic\\FallGuys_client\\Player.log";
                 boxResults.Text = await LogMonitor.ReadTail(playerLogDataPath, cts.Token);
             }
         }

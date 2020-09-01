@@ -16,14 +16,11 @@ namespace FallGuyStats.Controllers
     public class EpisodesController : ControllerBase
     {
         private readonly EpisodeContext _context;
-        private readonly PlayerLogParsingService _parsingService;
 
         public EpisodesController(
-            EpisodeContext context,
-            PlayerLogParsingService parsingService
+            EpisodeContext context
         )
         {
-            _parsingService = parsingService;
             _context = context;
         }
 
@@ -31,7 +28,6 @@ namespace FallGuyStats.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EpisodeModel>>> GetEpisodes()
         {
-            _parsingService.CheckPlayerLog();
             return await _context.Episodes.ToListAsync();
         }
 
