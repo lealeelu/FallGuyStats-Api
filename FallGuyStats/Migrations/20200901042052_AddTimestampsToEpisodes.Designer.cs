@@ -3,14 +3,16 @@ using System;
 using FallGuyStats.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FallGuyStats.Migrations
 {
     [DbContext(typeof(EpisodeContext))]
-    partial class EpisodeContextModelSnapshot : ModelSnapshot
+    [Migration("20200901042052_AddTimestampsToEpisodes")]
+    partial class AddTimestampsToEpisodes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
