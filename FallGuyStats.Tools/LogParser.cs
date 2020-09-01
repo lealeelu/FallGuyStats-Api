@@ -21,7 +21,7 @@ namespace FallGuyStats.Tools
                 Match episodeTimestamp = timestampRegex.Match(episodeStartingPoint);
                 string episodeData = "";        
                 int startIndex = playerLogData.IndexOf(episodeStartingPoint);
-                int endIndex = playerLogData.FindIndex(startIndex+1, timestamp => timestampRegex.Match(regexPattern).Success);
+                int endIndex = playerLogData.FindIndex(startIndex + 2, timestamp => Regex.IsMatch(timestamp, regexPattern));
                 for (int i = startIndex; i <= endIndex; i++)
                 {
                     episodeData += playerLogData[i];
