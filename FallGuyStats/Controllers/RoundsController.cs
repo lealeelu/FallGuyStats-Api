@@ -8,27 +8,27 @@ using Microsoft.EntityFrameworkCore;
 using FallGuyStats.Data;
 using FallGuyStats.Models;
 
-namespace FallGuyStats
+namespace FallGuyStats.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RoundController : ControllerBase
+    public class RoundsController : ControllerBase
     {
         private readonly EpisodeContext _context;
 
-        public RoundController(EpisodeContext context)
+        public RoundsController(EpisodeContext context)
         {
             _context = context;
         }
 
-        // GET: api/Round
+        // GET: api/Rounds
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RoundModel>>> GetRounds()
         {
             return await _context.Rounds.ToListAsync();
         }
 
-        // GET: api/Round/5
+        // GET: api/Rounds/5
         [HttpGet("{id}")]
         public async Task<ActionResult<RoundModel>> GetRoundModel(int id)
         {
@@ -42,7 +42,7 @@ namespace FallGuyStats
             return roundModel;
         }
 
-        // PUT: api/Round/5
+        // PUT: api/Rounds/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
@@ -74,7 +74,7 @@ namespace FallGuyStats
             return NoContent();
         }
 
-        // POST: api/Round
+        // POST: api/Rounds
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
@@ -86,7 +86,7 @@ namespace FallGuyStats
             return CreatedAtAction("GetRoundModel", new { id = roundModel.Id }, roundModel);
         }
 
-        // DELETE: api/Round/5
+        // DELETE: api/Rounds/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<RoundModel>> DeleteRoundModel(int id)
         {
