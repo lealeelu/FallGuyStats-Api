@@ -48,6 +48,7 @@ namespace FallGuyStats.Services
                     Kudos = newEpisode.Kudos,
                     Timestamp = newEpisode.Timestamp,
                     Season = newEpisode.Season,
+                    EpisodeFinished = newEpisode.EpisodeFinished,
                     Created = DateTime.UtcNow
                 };
 

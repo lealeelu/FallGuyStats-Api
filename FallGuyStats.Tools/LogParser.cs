@@ -27,8 +27,15 @@ namespace FallGuyStats.Tools
                     episodeData += playerLogData[i];
                 }
                 episodeToAdd = GetEpisodeStats(episodeData);
-                episodeToAdd.Timestamp = episodeTimestamp.Groups[1].Value;
 
+                // Get timestamps
+                episodeToAdd.Timestamp = episodeTimestamp.Groups[1].Value;
+                DateTime episodeFinished;
+                if (DateTime.TryParse(episodeToAdd.Timestamp, out episodeFinished)) {
+                    episodeToAdd.EpisodeFinished = episodeFinished;
+                }
+                
+                //get rounds
                 List<RoundEntity> roundsInEpisode = new List<RoundEntity>();
                 for (int i = 0; i < episodeToAdd.RoundsPlayed; i++)
                 {

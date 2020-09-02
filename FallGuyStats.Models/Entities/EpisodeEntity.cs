@@ -16,6 +16,7 @@ namespace FallGuyStats.Objects.Entities
 
         public string Timestamp { get; set; }
 
+        public DateTime EpisodeFinished { get; set; }
         public DateTime Created { get; set; }
 
     }
