@@ -12,17 +12,14 @@ namespace FallGuyStats.Services
 {
     public class StatService
     {
-        private readonly EpisodeContext _episodeContext;
-        private readonly StatContext _statContext;
+        private readonly FallGuysContext _fallGuysContext;
         private readonly ILogger<StatService> _logger;
 
         public StatService (
-            EpisodeContext episodeContext,
-            StatContext statContext,
+            FallGuysContext episodeContext,
             ILogger<StatService> logger)
         {
-            _episodeContext = episodeContext;
-            _statContext = statContext;
+            _fallGuysContext = episodeContext;
             _logger = logger;
         }
 
@@ -30,26 +27,26 @@ namespace FallGuyStats.Services
         {
             CheckPlayerLog();
             var result = new StatDTO() { };
-            var todayStat = _statContext.TodayStats
+            var todayStat = _fallGuysContext.TodayStats
                 .Where(s => s.EpisodeFinishedDate.Date == DateTime.Now.Date)
-                .FirstOrDefault();
+                .FirstOrDefault();            
             result.TodayStats = new SessionStatDTO
             {
-                Crowns = todayStat.CrownCount,
-                Episodes = todayStat.EpisodeCount,
+                CrownCount = todayStat?.CrownCount ?? 0,
+                EpisodeCount = todayStat?.EpisodeCount ?? 0,
                 // TODO add cheater count
-                Cheaters = 0,
+                CheaterCount = 0,
                 // TODO add rounds since crown
                 RoundsSinceCrown = 0
             };
-            var seasonStat = _statContext.SeasonStats.Where(s => s.Season == 1)
+            var seasonStat = _fallGuysContext.SeasonStats.Where(s => s.Season == 1)
                 .FirstOrDefault();
             result.SeasonStats = new SessionStatDTO
             {
-                Crowns = seasonStat.CrownCount,
-                Episodes = seasonStat.EpisodeCount,
+                CrownCount = seasonStat?.CrownCount ?? 0,
+                EpisodeCount = seasonStat?.EpisodeCount ?? 0,
                 // TODO add cheater count
-                Cheaters = 0,
+                CheaterCount = 0,
                 // TODO add rounds since crown
                 RoundsSinceCrown = 0
             };
@@ -63,7 +60,7 @@ namespace FallGuyStats.Services
             foreach (var newEpisode in newEpisodes)
             {
                 //check timestamps against db to determine if it is actually a new episode
-                if (_episodeContext.Episodes.Any(episode => episode.Timestamp == newEpisode.Timestamp)) return;
+                if (_fallGuysContext.Episodes.Any(episode => episode.Timestamp == newEpisode.Timestamp)) return;
 
                 //convert entity to model
                 var episodeModel = new EpisodeModel
@@ -78,10 +75,10 @@ namespace FallGuyStats.Services
                 };
 
                 //add episode model to db
-                var newEpisodeEntity = _episodeContext.Episodes.Add(episodeModel);
-                _episodeContext.SaveChanges();
+                var newEpisodeEntity = _fallGuysContext.Episodes.Add(episodeModel);
+                _fallGuysContext.SaveChanges();
                 //after the episode has been commited to the db, get the new episode id
-                var id = _episodeContext.Episodes.SingleOrDefault(e => e.Timestamp == newEpisode.Timestamp).Id;
+                var id = _fallGuysContext.Episodes.SingleOrDefault(e => e.Timestamp == newEpisode.Timestamp).Id;
                     
                 //add round models to db
                 foreach (var round in newEpisode.RoundEntities)
@@ -99,9 +96,9 @@ namespace FallGuyStats.Services
                         Position = round.Position,
                         Qualified = round.Qualified
                     };
-                    _episodeContext.Rounds.Add(roundModel);
+                    _fallGuysContext.Rounds.Add(roundModel);
                 }
-                _episodeContext.SaveChanges();
+                _fallGuysContext.SaveChanges();
                 _logger.LogInformation($"Saved {newEpisode.Timestamp} to db");
             }
         }

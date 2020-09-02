@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FallGuyStats.Migrations
 {
-    [DbContext(typeof(EpisodeContext))]
+    [DbContext(typeof(FallGuysContext))]
     [Migration("20200901052833_CreateSeasonStatsView")]
     partial class CreateSeasonStatsView
     {

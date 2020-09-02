@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FallGuyStats.Migrations
 {
-    [DbContext(typeof(EpisodeContext))]
+    [DbContext(typeof(FallGuysContext))]
     [Migration("20200901042052_AddTimestampsToEpisodes")]
     partial class AddTimestampsToEpisodes
     {

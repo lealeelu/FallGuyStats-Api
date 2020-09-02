@@ -12,9 +12,9 @@ namespace FallGuyStats.Objects.DTOs
 
     public class SessionStatDTO
     {
-        public int Crowns { get; set; }
-        public int Episodes { get; set; }
-        public int Cheaters { get; set; }
+        public int CrownCount { get; set; }
+        public int EpisodeCount { get; set; }
+        public int CheaterCount { get; set; }
         public int RoundsSinceCrown { get; set; }
     }
 }

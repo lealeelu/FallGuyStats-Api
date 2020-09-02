@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FallGuyStats.Migrations
 {
-    [DbContext(typeof(EpisodeContext))]
+    [DbContext(typeof(FallGuysContext))]
     [Migration("20200830145846_InitialMigration")]
     partial class InitialMigration
     {

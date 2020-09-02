@@ -12,6 +12,7 @@ namespace FallGuyStats
 {
     public class Startup
     {
+        readonly string AllowLocalOrigins = "_allowLocalOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -23,12 +24,19 @@ namespace FallGuyStats
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddLogging();
-            services.AddDbContext<EpisodeContext>(opt =>
-                opt.UseSqlite(Configuration.GetConnectionString("FallGuysDb")));
-            services.AddDbContext<StatContext>(opt =>
+            services.AddDbContext<FallGuysContext>(opt =>
                 opt.UseSqlite(Configuration.GetConnectionString("FallGuysDb")));
             services.AddControllers();
             services.AddScoped<StatService>();
+            services.AddCors(o =>
+            {
+                o.AddPolicy(AllowLocalOrigins, builder => {
+                    builder.WithOrigins("http://localhost:4200")
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
+            });
             
         }
 
@@ -45,6 +53,8 @@ namespace FallGuyStats
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(AllowLocalOrigins);
 
             app.UseEndpoints(endpoints =>
             {

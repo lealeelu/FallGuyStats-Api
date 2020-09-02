@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using FallGuyStats.Objects.DTOs;
 using FallGuyStats.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,6 +26,7 @@ namespace FallGuyStats.Controllers
 
         // GET: api/Stats
         [HttpGet]
+        [ProducesResponseType(typeof(StatDTO), StatusCodes.Status200OK)]
         public ActionResult<StatDTO> GetStats()
         {
             return _statService.GetStats();

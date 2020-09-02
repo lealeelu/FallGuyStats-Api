@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FallGuyStats.Migrations
 {
-    [DbContext(typeof(EpisodeContext))]
-    partial class EpisodeContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(FallGuysContext))]
+    partial class FallGuysContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -90,7 +90,27 @@ namespace FallGuyStats.Migrations
                     b.ToTable("Rounds");
                 });
 
-            
+            modelBuilder.Entity<TodayStatsView>(b =>
+                {
+                    b.HasKey(e => new { e.EpisodeFinishedDate });
+                    b.ToView("vTodayStats");
+                    b.Property<int>("Season").HasColumnType("INTEGER");
+                    b.Property<DateTime>("EpisodeFinishedDate").HasColumnType("DATE");
+                    b.Property<int>("EpisodeCount").HasColumnType("INTEGER");
+                    b.Property<int>("CrownCount").HasColumnType("INTEGER");
+
+                });
+
+            modelBuilder.Entity<SeasonStatsView>(b =>
+                {
+                    b.HasKey(e => e.Season);
+                    b.ToView("vSessionStats"); b.Property<int>("Season").HasColumnType("INTEGER");
+                    b.Property<DateTime>("EpisodeFinishedDate").HasColumnType("DATE");
+                    b.Property<int>("EpisodeCount").HasColumnType("INTEGER");
+                    b.Property<int>("CrownCount").HasColumnType("INTEGER");
+
+                });
+
 #pragma warning restore 612, 618
         }
     }

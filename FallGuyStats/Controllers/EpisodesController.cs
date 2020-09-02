@@ -15,10 +15,10 @@ namespace FallGuyStats.Controllers
     [ApiController]
     public class EpisodesController : ControllerBase
     {
-        private readonly EpisodeContext _context;
+        private readonly FallGuysContext _context;
 
         public EpisodesController(
-            EpisodeContext context
+            FallGuysContext context
         )
         {
             _context = context;
