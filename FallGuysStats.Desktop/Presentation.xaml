@@ -1,0 +1,33 @@
+﻿<Window x:Class="FallGuysStats.Desktop.Presentation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FallGuysStats.Desktop"
+        mc:Ignorable="d"
+        Title="Fall Guys Stats" Height="430" Width="336" FontFamily="Segoe UI" Background="Blue">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="lblSessionHeader" Content="SESSION STATS" HorizontalAlignment="Left" Margin="6,4,0,0" VerticalAlignment="Top" FontFamily="Titan One" Foreground="White" Width="126" FontSize="14" Height="26"/>
+        <Label x:Name="lblSessionStat1" Content="Played: " HorizontalAlignment="Left" Margin="6,28,0,0" VerticalAlignment="Top" FontFamily="Titan One" Foreground="White" Width="126" Height="24"/>
+        <Image Source="/fg-crowns.png" Margin="6,50,257,335"/>
+        <Image Source="/fg-kudos.png" Margin="4,79,223,305"/>
+        <TextBlock x:Name="tbCrowns" Text="0" TextWrapping="Wrap" Margin="42,57,258,338" FontFamily="Titan One
+                   " Foreground="White"/>
+        <TextBlock x:Name="tbKudos" Text="0" TextWrapping="Wrap" Margin="42,86,226,309" FontFamily="Titan One                    " Foreground="White"/>
+        <Label x:Name="lvlWinPercent" Content="Win %:" HorizontalAlignment="Left" Margin="6,108,0,0" VerticalAlignment="Top" FontFamily="Titan One" Foreground="White" Width="126" Height="24"/>
+        <TextBlock x:Name="tbWinPercent" Text="0" TextWrapping="Wrap" Margin="58,113,6,282" FontFamily="Titan One                    " Foreground="White"/>
+        <Label x:Name="lblSeasonHeader" Content="SEASON STATS" HorizontalAlignment="Left" Margin="6,132,0,0" VerticalAlignment="Top" FontFamily="Titan One" Foreground="White" Width="126" FontSize="14" Height="26"/>
+        <Label x:Name="lblSessionStat1_Copy" Content="Played: " HorizontalAlignment="Left" Margin="6,156,0,0" VerticalAlignment="Top" FontFamily="Titan One" Foreground="White" Width="126" Height="24"/>
+        <Label x:Name="lvlWinPercent_Copy" Content="Win %:" HorizontalAlignment="Left" Margin="6,236,0,0" VerticalAlignment="Top" FontFamily="Titan One" Foreground="White" Width="126" Height="24"/>
+        <TextBlock x:Name="tbWinPercent_Copy" Text="0" TextWrapping="Wrap" Margin="58,242,6,153" FontFamily="Titan One                    " Foreground="White"/>
+        <Label x:Name="lblRoundHeader" Content="ROUNDGAME STATS" HorizontalAlignment="Left" Margin="6,278,0,0" VerticalAlignment="Top" FontFamily="Titan One" Foreground="White" Width="158" FontSize="14" Height="26"/>
+        <Image Source="/fg-crowns.png" Margin="6,182,256,203"/>
+        <Image Source="/fg-kudos.png" Margin="4,211,222,173"/>
+        <TextBlock x:Name="tbCrowns_Copy" Text="0" TextWrapping="Wrap" Margin="42,189,258,206" FontFamily="Titan One                    " Foreground="White"/>
+        <TextBlock x:Name="tbKudos_Copy" Text="0" TextWrapping="Wrap" Margin="42,218,226,177" FontFamily="Titan One                    " Foreground="White"/>
+
+    </Grid>
+</Window>

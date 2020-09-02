@@ -12,10 +12,11 @@
         <Button x:Name="btnLatestEpStats" Content="Latest Episode Stats" HorizontalAlignment="Left" Margin="22,192,0,0" VerticalAlignment="Top" Width="122" IsEnabled="False" Click="btnLatestEpStats_Click"/>
         <Button x:Name="btnRoundData" Content="Round Data" HorizontalAlignment="Left" Margin="9,226,0,0" VerticalAlignment="Top" Width="74" Height="24" IsEnabled="False" Click="btnRoundData_Click"/>
         <ComboBox x:Name="cbRound" HorizontalAlignment="Left" Height="24" Margin="91,226,0,0" VerticalAlignment="Top" Width="53" IsEnabled="False"/>
-        <TextBox x:Name="boxResults" HorizontalAlignment="Left" Height="60" Margin="167,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="570" IsReadOnly="True"/>
+        <TextBox x:Name="boxResults" HorizontalAlignment="Left" Height="166" Margin="167,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="570" IsReadOnly="True"/>
         <Button x:Name="btnAutoMonitor" Content="Start Monitoring" HorizontalAlignment="Left" Margin="33,392,0,0" VerticalAlignment="Top" Click="btnAutoMonitor_Click"/>
         <TextBlock x:Name="tbStatusLabel" HorizontalAlignment="Left" Margin="157,394,0,0" Text="Monitoring Status:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="tbStatus" HorizontalAlignment="Left" Margin="263,394,0,0" Text="Not running" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Button x:Name="btnAllEpisodes" Content="Show All Episode&#xD;&#xA;Data From Log" HorizontalAlignment="Left" Margin="9,115,0,0" VerticalAlignment="Top" Width="135" Height="42" Click="btnAllEpisodes_Click"/>
+        <Button x:Name="btnTest" Content="Test" HorizontalAlignment="Left" Margin="64,290,0,0" VerticalAlignment="Top" Width="69" Click="btnTest_Click"/>
     </Grid>
 </Window>

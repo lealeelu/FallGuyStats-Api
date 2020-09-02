@@ -19,6 +19,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.EntityFrameworkCore;
+using FallGuyStats.Data;
 
 namespace FallGuysStats.Desktop
 {
@@ -184,6 +186,22 @@ namespace FallGuysStats.Desktop
             return string.IsNullOrEmpty(name)
                ? Application.Current.Windows.OfType<T>().Any()
                : Application.Current.Windows.OfType<T>().Any(w => w.Name.Equals(name));
+        }
+
+        private void btnTest_Click(object sender, RoutedEventArgs e)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<EpisodeContext>();
+            optionsBuilder.UseSqlite(@"Data Source=C:\Users\leekydesu\source\repos\FallGuyStats-Api\FallGuyStats\fallguys.db");
+            using (var context = new EpisodeContext(optionsBuilder.Options))
+            {
+                var foundEpisode = context.Episodes.First();
+                boxResults.Text = $"{foundEpisode.Id}, {foundEpisode.Created}, {foundEpisode.EpisodeFinished}, {foundEpisode.Crowns}, {foundEpisode.Fame}, {foundEpisode.Kudos}, {foundEpisode.Season}\r\n\r\n";
+                var roundsFromEpisode = context.Rounds.Where(round => round.EpisodeId == foundEpisode.Id);
+                foreach (var episodeRound in roundsFromEpisode)
+                {
+                    boxResults.Text += $"{episodeRound.Id}, {episodeRound.EpisodeId}, {episodeRound.RoundType}, {episodeRound.Qualified}, {episodeRound.Kudos}, {episodeRound.Badge}\r\n";
+                }
+            }
         }
     }
 }

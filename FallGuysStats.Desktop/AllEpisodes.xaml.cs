@@ -32,7 +32,7 @@ namespace FallGuysStats.Desktop
         {
             DisplayedEpisode = DisplayedEpisode + amount;
             tbEpisodeNumber.Text = $"Episode {DisplayedEpisode} of {EpisodeCount}";
-            boxEpisodeData.Text += $"Rounds Played: {Episodes[DisplayedEpisode - 1].RoundsPlayed}\r\n";
+            boxEpisodeData.Text = $"Rounds Played: {Episodes[DisplayedEpisode - 1].RoundsPlayed}\r\n";
             boxEpisodeData.Text += $"Total Kudos: {Episodes[DisplayedEpisode - 1].Kudos}\r\n";
             boxEpisodeData.Text += $"Total Fame: {Episodes[DisplayedEpisode - 1].Fame}\r\n";
             boxEpisodeData.Text += $"Crowns: {Episodes[DisplayedEpisode - 1].Crowns}\r\n";
