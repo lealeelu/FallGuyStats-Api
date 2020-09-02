@@ -10,7 +10,9 @@ namespace FallGuyStats.Migrations
                 .Sql(@"CREATE VIEW vSeasonStats as 
                         SELECT Season,
                         Count(id) as EpisodeCount,
-                        sum(crowns) as CrownCount 
+                        sum(crowns) as CrownCount,
+                        0 as CheaterCount,
+                        0 as RoundsSinceCrown
                         FROM Episodes Group by season;");
         }
 

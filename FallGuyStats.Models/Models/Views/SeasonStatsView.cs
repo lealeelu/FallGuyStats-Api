@@ -6,13 +6,15 @@ using System.Text;
 
 namespace FallGuyStats.Objects.Models.Views
 {
- 
+
     [Table("vSeasonStats")]
     public class SeasonStatsView
     {
         [Key]
         public int Season { get; set; }
-        public int EpisodeCount { get; set; }
         public int CrownCount { get; set; }
+        public int EpisodeCount { get; set; }
+        public int CheaterCount { get; set;}
+        public int RoundsSinceCrown { get; set; }
     }
 }

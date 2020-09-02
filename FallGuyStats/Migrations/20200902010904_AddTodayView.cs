@@ -9,7 +9,10 @@ namespace FallGuyStats.Migrations
             migrationBuilder
                 .Sql(@"CREATE VIEW vTodayStats as
                     SELECT Season, DATE(EpisodeFinished) as EpisodeFinishedDate, 
-                    Count(id) as EpisodeCount, sum(crowns) as CrownCount
+                    Count(id) as EpisodeCount,
+                    SUM(crowns) as CrownCount,
+                    0 as Cheaters,
+                    0 as RoundsSinceCrown
                     FROM Episodes
                     Group by Season, DATE(EpisodeFinished);");
         }

@@ -14,9 +14,9 @@ namespace FallGuyStats.Controllers
     [ApiController]
     public class RoundsController : ControllerBase
     {
-        private readonly EpisodeContext _context;
+        private readonly FallGuysContext _context;
 
-        public RoundsController(EpisodeContext context)
+        public RoundsController(FallGuysContext context)
         {
             _context = context;
         }
