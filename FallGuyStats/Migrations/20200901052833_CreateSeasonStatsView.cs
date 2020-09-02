@@ -6,12 +6,17 @@ namespace FallGuyStats.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("CREATE VIEW SeasonStatsView as SELECT Season, Count(id) as episodes, sum(crowns) from Episodes Group by season;");
+            migrationBuilder
+                .Sql(@"CREATE VIEW vSeasonStats as 
+                        SELECT Season,
+                        Count(id) as EpisodeCount,
+                        sum(crowns) as CrownCount 
+                        FROM Episodes Group by season;");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("DROP VIEW SeasonStatsView;");
+            migrationBuilder.Sql("DROP VIEW vSeasonStats;");
         }
     }
 }
