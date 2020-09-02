@@ -8,27 +8,37 @@ namespace FallGuyStats.Tools
 {
     public class LogParser
     {
+        public const string TimestampPattern = @"(\d+:\d+:\d+.\d+):";
+        private static Regex TimestampRegex = new Regex(TimestampPattern);
+
         public static List<EpisodeEntity> GetEpisodesFromLog()
         {
             List<EpisodeEntity> allEpisodes = new List<EpisodeEntity>();
-            List<string> playerLogData = ReadLogData();
-            List<string> episodeStartingPoints = playerLogData.FindAll(episodeDTO => episodeDTO.Contains("[CompletedEpisodeDto]"));
-            string regexPattern = @"(\d+:\d+:\d+.\d+):";
-            Regex timestampRegex = new Regex(regexPattern);
+            var playerLogData = ReadLogData();
+            var episodeStartingPoints = playerLogData.FindAll(data => data.Contains("[CompletedEpisodeDto]"));
             foreach (string episodeStartingPoint in episodeStartingPoints)
             {
-                EpisodeEntity episodeToAdd = new EpisodeEntity();
-                Match episodeTimestamp = timestampRegex.Match(episodeStartingPoint);
-                string episodeData = "";        
+                var episodeToAdd = new EpisodeEntity();
+
+                //get timestamp
+                var episodeTimestamp = TimestampRegex.Match(episodeStartingPoint);
+                string episodeData = "";
                 int startIndex = playerLogData.IndexOf(episodeStartingPoint);
-                int endIndex = playerLogData.FindIndex(startIndex + 2, timestamp => Regex.IsMatch(timestamp, regexPattern));
+                int endIndex = playerLogData.FindIndex(startIndex + 2, timestamp => Regex.IsMatch(timestamp, TimestampPattern));
                 for (int i = startIndex; i <= endIndex; i++)
                 {
                     episodeData += playerLogData[i];
                 }
                 episodeToAdd = GetEpisodeStats(episodeData);
-                episodeToAdd.Timestamp = episodeTimestamp.Groups[1].Value;
 
+                // Get timestamps
+                episodeToAdd.Timestamp = episodeTimestamp.Groups[1].Value;
+                DateTime episodeFinished;
+                if (DateTime.TryParse(episodeToAdd.Timestamp, out episodeFinished)) {
+                    episodeToAdd.EpisodeFinished = episodeFinished;
+                }
+                
+                //get rounds
                 List<RoundEntity> roundsInEpisode = new List<RoundEntity>();
                 for (int i = 0; i < episodeToAdd.RoundsPlayed; i++)
                 {

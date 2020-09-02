@@ -4,30 +4,55 @@ using FallGuyStats.Tools;
 using FallGuyStats.Data;
 using Microsoft.EntityFrameworkCore.Internal;
 using System.Linq;
-using System.Threading;
 using System;
-using FallGuyStats.Objects.Entities;
 using FallGuyStats.Objects.DTOs;
+using FallGuyStats.Controllers;
 
 namespace FallGuyStats.Services
 {
     public class StatService
     {
         private readonly EpisodeContext _episodeContext;
+        private readonly StatContext _statContext;
         private readonly ILogger<StatService> _logger;
 
         public StatService (
             EpisodeContext episodeContext,
+            StatContext statContext,
             ILogger<StatService> logger)
         {
             _episodeContext = episodeContext;
+            _statContext = statContext;
             _logger = logger;
         }
 
         public StatDTO GetStats()
         {
             CheckPlayerLog();
-            var result = new StatDTO();
+            var result = new StatDTO() { };
+            var todayStat = _statContext.TodayStats
+                .Where(s => s.EpisodeFinishedDate.Date == DateTime.Now.Date)
+                .FirstOrDefault();
+            result.TodayStats = new SessionStatDTO
+            {
+                Crowns = todayStat.CrownCount,
+                Episodes = todayStat.EpisodeCount,
+                // TODO add cheater count
+                Cheaters = 0,
+                // TODO add rounds since crown
+                RoundsSinceCrown = 0
+            };
+            var seasonStat = _statContext.SeasonStats.Where(s => s.Season == 1)
+                .FirstOrDefault();
+            result.SeasonStats = new SessionStatDTO
+            {
+                Crowns = seasonStat.CrownCount,
+                Episodes = seasonStat.EpisodeCount,
+                // TODO add cheater count
+                Cheaters = 0,
+                // TODO add rounds since crown
+                RoundsSinceCrown = 0
+            };
             return result;
         }
 
@@ -48,6 +73,7 @@ namespace FallGuyStats.Services
                     Kudos = newEpisode.Kudos,
                     Timestamp = newEpisode.Timestamp,
                     Season = newEpisode.Season,
+                    EpisodeFinished = newEpisode.EpisodeFinished,
                     Created = DateTime.UtcNow
                 };
 

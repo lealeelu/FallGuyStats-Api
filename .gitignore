@@ -75,3 +75,8 @@ _[Ss]cripts
 *.nupkg
 *.ncrunchsolution
 *.dot[Cc]over
+################################
+# Other
+#################################
+*.db-shm
+*.db-wal
