@@ -10,7 +10,7 @@
         <TextBox x:Name="boxEpisodeData" HorizontalAlignment="Left" Height="309" Margin="39,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216" IsReadOnly="True"/>
         <TextBlock x:Name="tbEpisodeNumber" HorizontalAlignment="Left" Margin="86,5,0,0" Text="Episode" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" Width="132" TextAlignment="Center"/>
         <Button x:Name="btnPrevious" Content="Previous" HorizontalAlignment="Left" Margin="51,361,0,0" VerticalAlignment="Top" Width="71" IsEnabled="False" Click="btnPrevious_Click"/>
-        <Button Content="Next" HorizontalAlignment="Left" Margin="166,361,0,0" VerticalAlignment="Top" Width="69" Click="Button_Click"/>
+        <Button x:Name="btnNext" Content="Next" HorizontalAlignment="Left" Margin="166,361,0,0" VerticalAlignment="Top" Width="69" Click="btnNext_Click"/>
 
     </Grid>
 </Window>

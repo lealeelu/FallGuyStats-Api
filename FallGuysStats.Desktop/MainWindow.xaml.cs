@@ -4,6 +4,7 @@ using FallGuyStats.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -29,9 +30,17 @@ namespace FallGuysStats.Desktop
         public MainWindow()
         {
             InitializeComponent();
+            var currentUserAppData = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            PlayerLogDataPath = currentUserAppData + "Low\\Mediatonic\\FallGuys_client\\Player.log";
         }
 
         CancellationTokenSource cts = new CancellationTokenSource();
+
+        public string PlayerLogDataPath
+        { get; set; }
+
+        public List<string> PlayerLogData
+        { get; set; }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -130,21 +139,51 @@ namespace FallGuysStats.Desktop
             }
             else
             {
-                tbStatus.Text = "Currently running";
-                btnAutoMonitor.Content = "Stop Monitoring";
-                btnLatestEpStats.IsEnabled = false;
-                btnRoundData.IsEnabled = false;
-                cbRound.IsEnabled = false;
-
-                var currentUserAppData = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                var playerLogDataPath = currentUserAppData + "Low\\Mediatonic\\FallGuys_client\\Player.log";
-                boxResults.Text = await LogMonitor.ReadTail(playerLogDataPath, cts.Token);
+                // Check to see if all episode data in log currently is accounted for
+                if (File.Exists(PlayerLogDataPath))
+                {
+                    tbStatus.Text = "Currently running";
+                    btnAutoMonitor.Content = "Stop Monitoring";
+                    btnLatestEpStats.IsEnabled = false;
+                    btnRoundData.IsEnabled = false;
+                    cbRound.IsEnabled = false;
+                    LogParser.GetEpisodesFromLog();
+                    boxResults.Text = await LogMonitor.ReadTail(PlayerLogDataPath, cts.Token);
+                }
+                else
+                {
+                    tbStatus.Text = "No player.log exists! Start playing Fall Guys first, you jabroni!";
+                    // do nothing, show an error or something, need player data to work
+                }
             }
         }
 
         private void btnAllEpisodes_Click(object sender, RoutedEventArgs e)
         {
+            if (IsWindowOpen<AllEpisodesWindow>())
+            {
+                AllEpisodesWindow openWindow = Application.Current.Windows.OfType<AllEpisodesWindow>().First();
+                openWindow.Activate();
+            }
+            else
+            {
+                if (File.Exists(PlayerLogDataPath))
+                {
+                    AllEpisodesWindow episodesWindow = new AllEpisodesWindow();
+                    episodesWindow.Show();
+                }
+                else
+                {
 
+                }
+            }
+        }
+
+        public static bool IsWindowOpen<T>(string name = "") where T : Window
+        {
+            return string.IsNullOrEmpty(name)
+               ? Application.Current.Windows.OfType<T>().Any()
+               : Application.Current.Windows.OfType<T>().Any(w => w.Name.Equals(name));
         }
     }
 }
