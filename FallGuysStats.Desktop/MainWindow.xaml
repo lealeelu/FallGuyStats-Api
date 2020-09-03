@@ -8,7 +8,7 @@
         Title="Fall Guys Stats" Height="450" Width="800" Background="#FF59725D">
     <Grid>
         <Button x:Name="getEpisodeData" Content="Get Episode Data" HorizontalAlignment="Left" Margin="33,10,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click"/>
-        <TextBox x:Name="PrimaryTextBox" HorizontalAlignment="Left" Margin="167,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="570" Height="175" IsReadOnly="True"/>
+        <TextBox x:Name="boxPrimary" HorizontalAlignment="Left" Margin="167,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="570" Height="175" IsReadOnly="True"/>
         <Button x:Name="btnLatestEpStats" Content="Latest Episode Stats" HorizontalAlignment="Left" Margin="22,192,0,0" VerticalAlignment="Top" Width="122" IsEnabled="False" Click="btnLatestEpStats_Click"/>
         <Button x:Name="btnRoundData" Content="Round Data" HorizontalAlignment="Left" Margin="9,226,0,0" VerticalAlignment="Top" Width="74" Height="24" IsEnabled="False" Click="btnRoundData_Click"/>
         <ComboBox x:Name="cbRound" HorizontalAlignment="Left" Height="24" Margin="91,226,0,0" VerticalAlignment="Top" Width="53" IsEnabled="False"/>
@@ -18,5 +18,6 @@
         <TextBlock x:Name="tbStatus" HorizontalAlignment="Left" Margin="263,394,0,0" Text="Not running" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Button x:Name="btnAllEpisodes" Content="Show All Episode&#xD;&#xA;Data From Log" HorizontalAlignment="Left" Margin="9,115,0,0" VerticalAlignment="Top" Width="135" Height="42" Click="btnAllEpisodes_Click"/>
         <Button x:Name="btnTest" Content="Test" HorizontalAlignment="Left" Margin="64,290,0,0" VerticalAlignment="Top" Width="69" Click="btnTest_Click"/>
+        <Button x:Name="btnMonitorWindow" Content="Open Monitor&#xD;&#xA;Window" HorizontalAlignment="Left" Margin="22,329,0,0" VerticalAlignment="Top" Width="102" Height="39" Click="btnMonitorWindow_Click"/>
     </Grid>
 </Window>

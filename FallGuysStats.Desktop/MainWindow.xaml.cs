@@ -50,7 +50,7 @@ namespace FallGuysStats.Desktop
             var latestEpisodeData = LogParser.GetNewestEpisodeData(logData);
             if (latestEpisodeData != "")
             {
-                PrimaryTextBox.Text = latestEpisodeData;
+                boxPrimary.Text = latestEpisodeData;
                 btnLatestEpStats.IsEnabled = true;
                 btnRoundData.IsEnabled = true;
                 cbRound.IsEnabled = true;
@@ -71,7 +71,7 @@ namespace FallGuysStats.Desktop
         private void btnLatestEpStats_Click(object sender, RoutedEventArgs e)
         {
             boxResults.Text = "";
-            var latestEpisodeData = PrimaryTextBox.Text;
+            var latestEpisodeData = boxPrimary.Text;
             var latestEpisode = LogParser.GetEpisodeStats(latestEpisodeData);
 
             boxResults.Text += $"Kudos Earned: {latestEpisode.Kudos}\r\n";
@@ -91,7 +91,7 @@ namespace FallGuysStats.Desktop
                 boxResults.Text = "";
                 if (cbRound.SelectedItem.ToString() == "All")
                 {
-                    var latestEpisodeData = PrimaryTextBox.Text;
+                    var latestEpisodeData = boxPrimary.Text;
                     var searchIndex = 0;
                     var roundCount = 0;
                     var resultsAllRounds = new List<RoundEntity>();
@@ -112,7 +112,7 @@ namespace FallGuysStats.Desktop
                 else
                 {
                     var roundNumber = Int32.Parse(cbRound.SelectedItem.ToString()) - 1;
-                    var roundResult = LogParser.GetRoundStats(PrimaryTextBox.Text, roundNumber);
+                    var roundResult = LogParser.GetRoundStats(boxPrimary.Text, roundNumber);
                     DisplayRoundData(roundResult, roundNumber);
                 }
             }
@@ -149,8 +149,21 @@ namespace FallGuysStats.Desktop
                     btnLatestEpStats.IsEnabled = false;
                     btnRoundData.IsEnabled = false;
                     cbRound.IsEnabled = false;
-                    LogParser.GetEpisodesFromLog();
-                    boxResults.Text = await LogMonitor.ReadTail(PlayerLogDataPath, cts.Token);
+
+                    if (IsWindowOpen<Presentation>())
+                    {
+                        Presentation openWindow = Application.Current.Windows.OfType<Presentation>().First();
+                        openWindow.Activate();
+                    }
+                    else
+                    {
+                        Presentation presentationWindow = new Presentation();
+                        presentationWindow.Show();
+                        var PlayerLogTask = await LogMonitor.ReadTail(PlayerLogDataPath, cts.Token);
+                        boxResults.Text = PlayerLogTask;
+                        PlayerLogData = PlayerLogTask.Split("\r\n").ToList();
+                        boxPrimary.Text += $"{PlayerLogData.Last()}";
+                    }
                 }
                 else
                 {
@@ -200,6 +213,27 @@ namespace FallGuysStats.Desktop
                 foreach (var episodeRound in roundsFromEpisode)
                 {
                     boxResults.Text += $"{episodeRound.Id}, {episodeRound.EpisodeId}, {episodeRound.RoundType}, {episodeRound.Qualified}, {episodeRound.Kudos}, {episodeRound.Badge}\r\n";
+                }
+            }
+        }
+
+        private void btnMonitorWindow_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsWindowOpen<Presentation>())
+            {
+                Presentation openWindow = Application.Current.Windows.OfType<Presentation>().First();
+                openWindow.Activate();
+            }
+            else
+            {
+                if (File.Exists(PlayerLogDataPath))
+                {
+                    Presentation presentationWindow = new Presentation();
+                    presentationWindow.Show();
+                }
+                else
+                {
+
                 }
             }
         }

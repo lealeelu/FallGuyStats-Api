@@ -10,7 +10,7 @@ namespace FallGuysStats.Desktop
 {
     class LogMonitor
     {
-     //TODO move to tools project
+        //TODO move to tools project
         public static async Task<string> ReadTail(string filename, CancellationToken token)
         {
             using (FileStream fs = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
@@ -31,6 +31,17 @@ namespace FallGuysStats.Desktop
                 return "Monitoring stopped.";
             }
         }
+
+
+        public static async Task<string> MonitorLog(string filename, CancellationToken token)
+        {
+            using (FileStream fs = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                await Task.Delay(5000);
+                return "balh";
+            }
+        }
+
 
         /* public static async void ReadPlayerLog()
         {
