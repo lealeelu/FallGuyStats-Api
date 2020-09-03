@@ -1,6 +1,8 @@
 ﻿using FallGuyStats.Objects.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -50,6 +52,7 @@ namespace FallGuyStats.Tools
             }
             return allEpisodes;
         }
+
         public static EpisodeEntity GetEpisodeFromLog()
         {
             List<string> logData = ReadLogData();
