@@ -7,12 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="fg-crowns.png" />
+    <None Remove="fg-kudos.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.7" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FallGuyStats.Tools\FallGuyStats.Tools.csproj" />
     <ProjectReference Include="..\FallGuyStats\FallGuyStats.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="fg-crowns.png" />
+    <Resource Include="fg-kudos.png" />
   </ItemGroup>
 
 </Project>

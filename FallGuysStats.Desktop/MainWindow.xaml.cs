@@ -190,9 +190,9 @@ namespace FallGuysStats.Desktop
 
         private void btnTest_Click(object sender, RoutedEventArgs e)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<EpisodeContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<FallGuysContext>();
             optionsBuilder.UseSqlite(@"Data Source=C:\Users\leekydesu\source\repos\FallGuyStats-Api\FallGuyStats\fallguys.db");
-            using (var context = new EpisodeContext(optionsBuilder.Options))
+            using (var context = new FallGuysContext(optionsBuilder.Options))
             {
                 var foundEpisode = context.Episodes.First();
                 boxResults.Text = $"{foundEpisode.Id}, {foundEpisode.Created}, {foundEpisode.EpisodeFinished}, {foundEpisode.Crowns}, {foundEpisode.Fame}, {foundEpisode.Kudos}, {foundEpisode.Season}\r\n\r\n";

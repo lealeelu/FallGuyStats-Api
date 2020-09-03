@@ -76,7 +76,11 @@ namespace FallGuyStats.Tools
         {
             string currentUserAppData = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             string playerLogDataPath = currentUserAppData + "Low\\Mediatonic\\FallGuys_client\\Player.log";
-            List<string> playerLogData = System.IO.File.ReadLines(playerLogDataPath).ToList();
+            System.IO.FileStream fs = new System.IO.FileStream(playerLogDataPath, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite);
+            System.IO.StreamReader sr = new System.IO.StreamReader(fs);
+            List<string> playerLogData = new List<string>();
+            playerLogData = sr.ReadToEndAsync().Result.Split("\r\n").ToList();
+            // List<string> playerLogData = System.IO.File.ReadLines(playerLogDataPath).ToList();
             return playerLogData;
         }
 
