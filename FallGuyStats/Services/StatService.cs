@@ -7,19 +7,21 @@ using System.Linq;
 using System;
 using FallGuyStats.Objects.DTOs;
 using FallGuyStats.Controllers;
+using FallGuyStats.Repositories;
+using System.Collections.Generic;
 
 namespace FallGuyStats.Services
 {
     public class StatService
     {
-        private readonly FallGuysContext _fallGuysContext;
+        private readonly EpisodeRepository _episodeRepository;
         private readonly ILogger<StatService> _logger;
 
         public StatService (
-            FallGuysContext episodeContext,
+            EpisodeRepository episodeRepository,
             ILogger<StatService> logger)
         {
-            _fallGuysContext = episodeContext;
+            _episodeRepository = episodeRepository;
             _logger = logger;
         }
 
@@ -27,9 +29,7 @@ namespace FallGuyStats.Services
         {
             CheckPlayerLog();
             var result = new StatDTO() { };
-            var todayStat = _fallGuysContext.TodayStats
-                .Where(s => s.EpisodeFinishedDate.Date == DateTime.Now.Date)
-                .FirstOrDefault();            
+            var todayStat = _episodeRepository.GetTodayStats();
             result.TodayStats = new SessionStatDTO
             {
                 CrownCount = todayStat?.CrownCount ?? 0,
@@ -39,8 +39,7 @@ namespace FallGuyStats.Services
                 // TODO add rounds since crown
                 RoundsSinceCrown = 0
             };
-            var seasonStat = _fallGuysContext.SeasonStats.Where(s => s.Season == 1)
-                .FirstOrDefault();
+            var seasonStat = _episodeRepository.GetSeasonStats();
             result.SeasonStats = new SessionStatDTO
             {
                 CrownCount = seasonStat?.CrownCount ?? 0,
@@ -60,8 +59,8 @@ namespace FallGuyStats.Services
             foreach (var newEpisode in newEpisodes)
             {
                 //check timestamps against db to determine if it is actually a new episode
-                if (_fallGuysContext.Episodes.Any(episode => episode.Timestamp == newEpisode.Timestamp)) return;
-
+                if (_episodeRepository.EpisodeExists(newEpisode.Timestamp)) continue;
+                
                 //convert entity to model
                 var episodeModel = new EpisodeModel
                 {
@@ -74,13 +73,10 @@ namespace FallGuyStats.Services
                     Created = DateTime.UtcNow
                 };
 
-                //add episode model to db
-                var newEpisodeEntity = _fallGuysContext.Episodes.Add(episodeModel);
-                _fallGuysContext.SaveChanges();
-                //after the episode has been commited to the db, get the new episode id
-                var id = _fallGuysContext.Episodes.SingleOrDefault(e => e.Timestamp == newEpisode.Timestamp).Id;
-                    
+                var id = _episodeRepository.AddEpisode(episodeModel);
+
                 //add round models to db
+                var rounds = new List<RoundModel>();
                 foreach (var round in newEpisode.RoundEntities)
                 {
                     var roundModel = new RoundModel()
@@ -96,9 +92,9 @@ namespace FallGuyStats.Services
                         Position = round.Position,
                         Qualified = round.Qualified
                     };
-                    _fallGuysContext.Rounds.Add(roundModel);
+                    rounds.Add(roundModel);
                 }
-                _fallGuysContext.SaveChanges();
+                _episodeRepository.AddRounds(rounds);
                 _logger.LogInformation($"Saved {newEpisode.Timestamp} to db");
             }
         }

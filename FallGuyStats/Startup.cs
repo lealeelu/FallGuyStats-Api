@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using FallGuyStats.Data;
 using Microsoft.Extensions.FileProviders;
 using FallGuyStats.Services;
+using FallGuyStats.Repositories;
 
 namespace FallGuyStats
 {
@@ -28,6 +29,7 @@ namespace FallGuyStats
                 opt.UseSqlite(Configuration.GetConnectionString("FallGuysDb")));
             services.AddControllers();
             services.AddScoped<StatService>();
+            services.AddScoped<EpisodeRepository>();
             services.AddCors(o =>
             {
                 o.AddPolicy(AllowLocalOrigins, builder => {
