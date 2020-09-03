@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace FallGuyStats.Tools
@@ -10,6 +11,7 @@ namespace FallGuyStats.Tools
     {
         public const string epPattern = @"(?<finishedDate>\d+:\d+:\d+.\d+).+?Kudos: (?<episodeKudos>(\d)*).+?Fame: (?<episodeFame>(\d)*).+?Crowns: (?<crowns>(\d)*)";
         public const string roundPattern = @"\[Round (?<roundNumber>\d+) \| (?<roundName>\w+).+?Qualified: (?<qualified>\w+).+?Position: (?<position>\d*).+?Kudos: (?<kudos>\d*).+?Fame: (?<fame>\d*).+?Bonus Tier: (?<bonusTier>\d*).+?Bonus Kudos: (?<bonusKudos>\d*).+?Bonus Fame: (?<bonusFame>\d*).+?BadgeId: (?<badge>\w*)";
+        public const string currentRoundPattern = @"\[StateGameLoading\] Finished loading game level, assumed to be '(?<roundName>\w+)'";
 
         public static List<EpisodeEntity> GetEpisodesFromLog()
         {
@@ -97,6 +99,18 @@ namespace FallGuyStats.Tools
                 }
             }
             return results;
+        }
+
+        private static string GetCurrentRoundFromString(string roundString)
+        {
+            var roundMatches = Regex.Matches(roundString, currentRoundPattern, RegexOptions.Singleline);
+
+            var currentRound = "Unknown";
+            if (roundMatches.Last().Success)
+            {
+                currentRound = roundMatches.Last().Groups["roundName"].Value ?? string.Empty;
+            }
+            return currentRound;
         }
     }
 }
