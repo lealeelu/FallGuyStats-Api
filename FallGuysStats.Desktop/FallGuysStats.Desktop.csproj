@@ -7,8 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="fg-bronze.png" />
+    <None Remove="fg-bronze2.png" />
     <None Remove="fg-crowns.png" />
+    <None Remove="fg-failed.png" />
+    <None Remove="fg-failed2.png" />
+    <None Remove="fg-gold.png" />
+    <None Remove="fg-gold2.png" />
     <None Remove="fg-kudos.png" />
+    <None Remove="fg-passed.png" />
+    <None Remove="fg-passed2.png" />
+    <None Remove="fg-silver.png" />
+    <None Remove="fg-silver2.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,8 +31,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="fg-bronze.png" />
+    <Resource Include="fg-bronze2.png" />
     <Resource Include="fg-crowns.png" />
+    <Resource Include="fg-failed.png" />
+    <Resource Include="fg-failed2.png" />
+    <Resource Include="fg-gold.png" />
+    <Resource Include="fg-gold2.png" />
     <Resource Include="fg-kudos.png" />
+    <Resource Include="fg-passed.png" />
+    <Resource Include="fg-passed2.png" />
+    <Resource Include="fg-silver.png" />
+    <Resource Include="fg-silver2.png" />
   </ItemGroup>
 
 </Project>
