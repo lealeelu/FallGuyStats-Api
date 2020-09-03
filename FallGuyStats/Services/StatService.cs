@@ -56,7 +56,7 @@ namespace FallGuyStats.Services
         // Check to see if there are any new eps and adds it to db
         public void CheckPlayerLog()
         {
-            var newEpisodes = LogParser.GetEpisodesFromLog();
+            var newEpisodes = LogParserV2.GetEpisodesFromLog();
             foreach (var newEpisode in newEpisodes)
             {
                 //check timestamps against db to determine if it is actually a new episode
@@ -69,7 +69,7 @@ namespace FallGuyStats.Services
                     Fame = newEpisode.Fame,
                     Kudos = newEpisode.Kudos,
                     Timestamp = newEpisode.Timestamp,
-                    Season = newEpisode.Season,
+                    Season = 1,
                     EpisodeFinished = newEpisode.EpisodeFinished,
                     Created = DateTime.UtcNow
                 };

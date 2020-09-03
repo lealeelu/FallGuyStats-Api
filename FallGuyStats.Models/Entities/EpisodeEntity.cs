@@ -6,6 +6,11 @@ namespace FallGuyStats.Objects.Entities
 {
     public class EpisodeEntity
     {
+        public EpisodeEntity()
+        {
+            RoundEntities = new List<RoundEntity>();
+        }
+
         public int Id { get; set; }
         public int Kudos { get; set; }
         public int Fame { get; set; }
