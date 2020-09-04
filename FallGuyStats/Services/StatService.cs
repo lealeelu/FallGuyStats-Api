@@ -9,6 +9,7 @@ using FallGuyStats.Objects.DTOs;
 using FallGuyStats.Controllers;
 using FallGuyStats.Repositories;
 using System.Collections.Generic;
+using FallGuyStats.Objects.Entities;
 
 namespace FallGuyStats.Services
 {
@@ -51,6 +52,11 @@ namespace FallGuyStats.Services
             };
             _logger.LogInformation($"Current Round: {LogParserV2.currentRound}");
             result.RoundStats = _episodeRepository.GetRoundStats(LogParserV2.currentRound);
+            string readableRoundType;
+            if (RoundEntity.RoundTypeMap.TryGetValue(LogParserV2.currentRound, out readableRoundType))
+            {
+                result.CurrentRound = readableRoundType;
+            }
             return result;
         }
 
