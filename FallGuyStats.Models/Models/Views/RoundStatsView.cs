@@ -6,7 +6,6 @@ using System.Text;
 
 namespace FallGuyStats.Objects.Models.Views
 {
-    [Table("vRoundStats")]
     public class RoundStatsView
     {
         [Key]

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FallGuyStats.Migrations
 {
     [DbContext(typeof(FallGuysContext))]
-    [Migration("20200904020817_AddRoundStatView")]
-    partial class AddRoundStatView
+    [Migration("20200904162305_AddViews")]
+    partial class AddViews
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -89,73 +89,6 @@ namespace FallGuyStats.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Rounds");
-                });
-
-            modelBuilder.Entity("FallGuyStats.Objects.Models.Views.RoundStatsView", b =>
-                {
-                    b.Property<string>("RoundType")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("BronzeCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("GoldCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("NotQualifiedCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("QualifiedCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("SilverCount")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("RoundType");
-
-                    b.ToTable("vRoundStats");
-                });
-
-            modelBuilder.Entity("FallGuyStats.Objects.Models.Views.SeasonStatsView", b =>
-                {
-                    b.Property<int>("Season")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CheaterCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CrownCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("EpisodeCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("RoundsSinceCrown")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Season");
-
-                    b.ToTable("vSeasonStats");
-                });
-
-            modelBuilder.Entity("FallGuyStats.Objects.Models.Views.TodayStatsView", b =>
-                {
-                    b.Property<DateTime>("EpisodeFinishedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("CrownCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("EpisodeCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Season")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("EpisodeFinishedDate");
-
-                    b.ToTable("vTodayStats");
                 });
 #pragma warning restore 612, 618
         }

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FallGuyStats.Migrations
 {
     [DbContext(typeof(FallGuysContext))]
-    [Migration("20200901052833_CreateSeasonStatsView")]
-    partial class CreateSeasonStatsView
+    [Migration("20200904162026_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,6 +29,9 @@ namespace FallGuyStats.Migrations
 
                     b.Property<int>("Crowns")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("EpisodeFinished")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Fame")
                         .HasColumnType("INTEGER");

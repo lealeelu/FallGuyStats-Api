@@ -6,8 +6,6 @@ using System.Text;
 
 namespace FallGuyStats.Objects.Models.Views
 {
-
-    [Table("vSeasonStats")]
     public class SeasonStatsView
     {
         [Key]

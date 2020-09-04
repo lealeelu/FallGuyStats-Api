@@ -43,12 +43,14 @@ namespace FallGuyStats
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, FallGuysContext fallGuysContext)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            fallGuysContext.Database.EnsureCreated();
 
             app.UseHttpsRedirection();
 

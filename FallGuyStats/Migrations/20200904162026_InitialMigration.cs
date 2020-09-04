@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FallGuyStats.Migrations
 {
@@ -14,7 +15,11 @@ namespace FallGuyStats.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Kudos = table.Column<int>(nullable: false),
                     Fame = table.Column<int>(nullable: false),
-                    Crowns = table.Column<int>(nullable: false)
+                    Crowns = table.Column<int>(nullable: false),
+                    Season = table.Column<int>(nullable: false),
+                    Timestamp = table.Column<string>(nullable: true),
+                    EpisodeFinished = table.Column<DateTime>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

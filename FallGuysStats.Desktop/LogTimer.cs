@@ -10,9 +10,9 @@ namespace FallGuysStats.Desktop
         public static void SetupTimer()
         {
             var autoEvent = new AutoResetEvent(false);
-            var logMonitor = new LogMonitor(true);
+            //var logMonitor = new LogMonitor(true);
 
-            var stateTimer = new Timer(logMonitor.CheckFile, autoEvent, 1000, 7000);
+//            var stateTimer = new Timer(logMonitor.CheckFile, autoEvent, 1000, 7000);
         }
     }
 }

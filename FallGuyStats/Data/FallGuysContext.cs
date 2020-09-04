@@ -8,7 +8,26 @@ namespace FallGuyStats.Data
     {
         public FallGuysContext (DbContextOptions<FallGuysContext> options) : base (options)
         {
+        }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            modelBuilder.Entity<RoundStatsView>(b =>
+            {
+                b.HasKey("RoundType");
+                b.ToView("RoundStats");
+            });
+
+            modelBuilder.Entity<SeasonStatsView>(b =>
+            {
+                b.HasKey("Season");
+                b.ToView("SeasonStats");
+            });
+
+            modelBuilder.Entity<TodayStatsView>(b =>
+            {
+                b.HasKey("EpisodeFinishedDate");
+                b.ToView("TodayStats");
+            });
         }
 
         public DbSet<EpisodeModel> Episodes { get; set; }

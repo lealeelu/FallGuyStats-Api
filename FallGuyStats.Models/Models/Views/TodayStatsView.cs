@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FallGuyStats.Objects.Models.Views
 {
-    [Table("vTodayStats")]
     public class TodayStatsView
     {
         public int Season { get; set; }
