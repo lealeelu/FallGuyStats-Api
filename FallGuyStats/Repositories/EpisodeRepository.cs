@@ -52,5 +52,10 @@ namespace FallGuyStats.Repositories
             return _fallGuysContext.SeasonStats.Where(s => s.Season == 1)
                 .FirstOrDefault();
         }
+
+        public RoundStatsView GetRoundStats(string roundName)
+        {
+            return _fallGuysContext.RoundStats.Where<RoundStatsView>(roundstat => roundstat.RoundType == roundName).FirstOrDefault();
+        }
     }
 }

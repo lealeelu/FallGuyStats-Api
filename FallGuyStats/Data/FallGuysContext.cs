@@ -15,5 +15,6 @@ namespace FallGuyStats.Data
         public DbSet<RoundModel> Rounds { get; set; }
         public DbSet<SeasonStatsView> SeasonStats { get; set; }
         public DbSet<TodayStatsView> TodayStats { get; set; }
+        public DbSet<RoundStatsView> RoundStats { get; set; }
     }
 }

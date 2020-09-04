@@ -11,14 +11,16 @@ namespace FallGuyStats.Tools
     {
         public const string epPattern = @"(?<finishedDate>\d+:\d+:\d+.\d+).+?Kudos: (?<episodeKudos>(\d)*).+?Fame: (?<episodeFame>(\d)*).+?Crowns: (?<crowns>(\d)*)";
         public const string roundPattern = @"\[Round (?<roundNumber>\d+) \| (?<roundName>\w+).+?Qualified: (?<qualified>\w+).+?Position: (?<position>\d*).+?Kudos: (?<kudos>\d*).+?Fame: (?<fame>\d*).+?Bonus Tier: (?<bonusTier>\d*).+?Bonus Kudos: (?<bonusKudos>\d*).+?Bonus Fame: (?<bonusFame>\d*).+?BadgeId: (?<badge>\w*)";
-        public const string currentRoundPattern = @"\[StateGameLoading\] Finished loading game level, assumed to be '(?<roundName>\w+)'";
+        public const string currentRoundPattern = @"\[StateGameLoading\] Finished loading game level, assumed to be (?<roundName>\w+)";
+
+        public static string currentRound = "unknown";
 
         public static List<EpisodeEntity> GetEpisodesFromLog()
         {
             var currentUserAppData = System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             var playerLogDataPath = currentUserAppData + "Low\\Mediatonic\\FallGuys_client\\Player.log";
-            var EpisodeList = new List<EpisodeEntity>();
             var episodeString = "";
+            var currentGameString = "";
 
             try
             {
@@ -33,9 +35,15 @@ namespace FallGuyStats.Tools
                         while (!streamReader.EndOfStream)
                         {
                             var line = streamReader.ReadLine();
-                            if (line.Contains("CompletedEpisodeDto") || line.StartsWith(">") || line.StartsWith("[Round"))
+                            if (line.Contains("CompletedEpisodeDto") 
+                                || line.StartsWith(">")
+                                || line.StartsWith("[Round"))
                             {
                                 episodeString += line;
+                            }
+                            if (line.Contains("[StateGameLoading] Fin"))
+                            {
+                                currentGameString = line;
                             }
                         }
                     }
@@ -46,6 +54,7 @@ namespace FallGuyStats.Tools
                 Console.WriteLine("Error loading log file: " + ex.Message);
             }
 
+            currentRound = GetCurrentRoundFromString(currentGameString);
             return GetEpisodesFromLogString(episodeString);
         }
 
@@ -106,7 +115,7 @@ namespace FallGuyStats.Tools
             var roundMatches = Regex.Matches(roundString, currentRoundPattern, RegexOptions.Singleline);
 
             var currentRound = "Unknown";
-            if (roundMatches.Last().Success)
+            if (roundMatches.Count > 0)
             {
                 currentRound = roundMatches.Last().Groups["roundName"].Value ?? string.Empty;
             }

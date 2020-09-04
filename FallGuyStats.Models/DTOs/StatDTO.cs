@@ -1,6 +1,5 @@
-﻿using System;
+﻿using FallGuyStats.Objects.Models.Views;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FallGuyStats.Objects.DTOs
 {
@@ -8,6 +7,8 @@ namespace FallGuyStats.Objects.DTOs
     {
         public SessionStatDTO TodayStats { get; set; }
         public SessionStatDTO SeasonStats { get; set; }
+        public RoundStatsView RoundStats { get; set; } 
+        public string CurrentRound { get; set; }
     }
 
     public class SessionStatDTO

@@ -49,6 +49,8 @@ namespace FallGuyStats.Services
                 // TODO add rounds since crown
                 RoundsSinceCrown = 0
             };
+            _logger.LogInformation($"Current Round: {LogParserV2.currentRound}");
+            result.RoundStats = _episodeRepository.GetRoundStats(LogParserV2.currentRound);
             return result;
         }
 
