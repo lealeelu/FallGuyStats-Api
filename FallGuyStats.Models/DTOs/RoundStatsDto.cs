@@ -6,9 +6,8 @@ using System.Text;
 
 namespace FallGuyStats.Objects.Models.Views
 {
-    public class RoundStatsView
+    public class RoundStatsDto
     {
-        [Key]
         public string RoundType { get; set; }
         public int GoldCount { get; set; }
         public int SilverCount { get; set; }

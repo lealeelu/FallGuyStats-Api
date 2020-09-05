@@ -40,7 +40,7 @@ namespace FallGuyStats.Services
                 // TODO add rounds since crown
                 RoundsSinceCrown = 0
             };
-            var seasonStat = _episodeRepository.GetSeasonStats();
+            var seasonStat = _episodeRepository.GetSeasonStats(1);
             result.SeasonStats = new SessionStatDTO
             {
                 CrownCount = seasonStat?.CrownCount ?? 0,
@@ -57,6 +57,7 @@ namespace FallGuyStats.Services
             {
                 result.CurrentRound = readableRoundType;
             }
+            result.Streak = _episodeRepository.GetStreak();
             return result;
         }
 

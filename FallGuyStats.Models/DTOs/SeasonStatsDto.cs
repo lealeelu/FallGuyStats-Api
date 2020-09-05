@@ -6,9 +6,8 @@ using System.Text;
 
 namespace FallGuyStats.Objects.Models.Views
 {
-    public class SeasonStatsView
+    public class SeasonStatsDto
     {
-        [Key]
         public int Season { get; set; }
         public int CrownCount { get; set; }
         public int EpisodeCount { get; set; }

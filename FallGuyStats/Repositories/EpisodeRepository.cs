@@ -1,6 +1,8 @@
 ﻿using FallGuyStats.Data;
 using FallGuyStats.Models;
+using FallGuyStats.Objects.DTOs;
 using FallGuyStats.Objects.Models.Views;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +13,13 @@ namespace FallGuyStats.Repositories
     public class EpisodeRepository {
 
         private FallGuysContext _fallGuysContext;
+        private ILogger<EpisodeRepository> _logger;
         public EpisodeRepository(
-            FallGuysContext fallGuysContext
+            FallGuysContext fallGuysContext,
+            ILogger<EpisodeRepository> logger
         ) {
-            _fallGuysContext = fallGuysContext;    
+            _fallGuysContext = fallGuysContext;
+            _logger = logger;
         }
 
         public int AddEpisode(EpisodeModel episode)
@@ -40,22 +45,93 @@ namespace FallGuyStats.Repositories
             return _fallGuysContext.Episodes.Any(episode => episode.Timestamp == timestamp);
         }
 
-        public TodayStatsView GetTodayStats()
+        public TodayStatsDto GetTodayStats()
         {
-            return _fallGuysContext.TodayStats
-                .Where(s => s.EpisodeFinishedDate.Date == DateTime.Now.Date)
+            return _fallGuysContext.Episodes.Where(e => e.EpisodeFinished.Date == DateTime.Now.Date)
+                .GroupBy(e => e.EpisodeFinished.Date)
+                .Select(s => new TodayStatsDto
+                {
+                    EpisodeFinishedDate = s.Key,
+                    EpisodeCount = s.Count(),
+                    CrownCount = s.Sum(c => c.Crowns)                    
+                })
                 .FirstOrDefault();
         }
 
-        public SeasonStatsView GetSeasonStats()
+        public SeasonStatsDto GetSeasonStats(int season)
         {
-            return _fallGuysContext.SeasonStats.Where(s => s.Season == 1)
+            return _fallGuysContext.Episodes.Where(e => e.Season == season)
+                .GroupBy(e => e.Season)
+                .Select(s => new SeasonStatsDto
+                {
+                    Season = s.Key,
+                    EpisodeCount = s.Count(),
+                    CrownCount = s.Sum(c => c.Crowns),
+                    CheaterCount = 0 
+                })
                 .FirstOrDefault();
         }
 
-        public RoundStatsView GetRoundStats(string roundName)
+        public RoundStatsDto GetRoundStats(string roundName)
         {
-            return _fallGuysContext.RoundStats.Where<RoundStatsView>(roundstat => roundstat.RoundType == roundName).FirstOrDefault();
+            return _fallGuysContext.Rounds
+                .Where(round => round.RoundType == roundName)
+                .GroupBy(r => r.RoundType)
+                .Select(s => new RoundStatsDto
+                {
+                    RoundType = s.Key,
+                    GoldCount = s.Sum(r => r.Badge == "gold"? 1 : 0),
+                    SilverCount = s.Sum(r => r.Badge == "silver"? 1 : 0),
+                    BronzeCount = s.Sum(r => r.Badge == "bronze"? 1 : 0),
+                    QualifiedCount = s.Sum(r => r.Qualified? 1 : 0),
+                    NotQualifiedCount = s.Sum(r => r.Qualified? 0 : 1)
+                })
+                .FirstOrDefault();
+        }
+
+        public StreakDto GetStreak()
+        {
+            var result = new StreakDto();
+            try
+            {
+                var lastEpisode = _fallGuysContext.Episodes
+                .OrderBy(e => e.EpisodeFinished)
+                .Last();
+                if (lastEpisode.Crowns > 0)
+                {
+                    result.Winning = true;
+                    var maxCreated = _fallGuysContext.Episodes
+                        .Where(e => e.Crowns == 0)
+                        .GroupBy(e => e.Crowns)
+                        .Select(s => s.Max(e => e.Created));
+
+                    result.Streak = _fallGuysContext.Episodes
+                        .Where(e => e.Crowns == 1)
+                        .GroupBy(e => e.Crowns)
+                        .Select(s => s.Count())
+                        .FirstOrDefault();
+                }
+                else
+                {
+                    result.Winning = false;
+                    var maxCreated = _fallGuysContext.Episodes
+                        .Where(e => e.Crowns == 1)
+                        .GroupBy(e => e.Crowns)
+                        .Select(s => s.Max(e => e.Created));
+
+                    result.Streak = _fallGuysContext.Episodes
+                        .Where(e => e.Crowns == 0)
+                        .GroupBy(e => e.Crowns)
+                        .Select(s => s.Count())
+                        .FirstOrDefault();
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Unable to get streak {e.Message}");
+            }            
+
+            return result;
         }
     }
 }

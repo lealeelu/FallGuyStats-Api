@@ -7,15 +7,8 @@ namespace FallGuyStats.Objects.DTOs
     {
         public SessionStatDTO TodayStats { get; set; }
         public SessionStatDTO SeasonStats { get; set; }
-        public RoundStatsView RoundStats { get; set; } 
+        public RoundStatsDto RoundStats { get; set; } 
         public string CurrentRound { get; set; }
-    }
-
-    public class SessionStatDTO
-    {
-        public int CrownCount { get; set; }
-        public int EpisodeCount { get; set; }
-        public int CheaterCount { get; set; }
-        public int RoundsSinceCrown { get; set; }
-    }
+        public StreakDto Streak { get; set; }
+    }    
 }
