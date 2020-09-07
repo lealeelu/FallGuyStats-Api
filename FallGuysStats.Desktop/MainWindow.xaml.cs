@@ -1,4 +1,8 @@
-﻿using FallGuyStats.Models;
+﻿// FallGuyStats Copyright (c) Leah Lee. All rights reserved.
+// Licensed under the GNU General Public License v3.0
+// Please Consider supporting the developer with some good good coffee: ko-fi.com/lealeelu
+
+using FallGuyStats.Models;
 using FallGuyStats.Objects.Entities;
 using FallGuyStats.Tools;
 using System;

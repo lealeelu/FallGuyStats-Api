@@ -3,7 +3,7 @@
 # You can learn more about editorconfig here: https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference
 [*.cs]
 
-file_header_template = FallGuyStats Copyright (c) Leah Lee. All rights reserved.\nLicensed under the GNU General Public License v3.0
+file_header_template = FallGuyStats Copyright (c) Leah Lee. All rights reserved.\nLicensed under the GNU General Public License v3.0\nPlease Consider supporting the developer with some good good coffee: ko-fi.com/lealeelu
     
 #Core editorconfig formatting - indentation
 

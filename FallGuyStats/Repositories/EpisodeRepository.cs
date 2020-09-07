@@ -1,4 +1,8 @@
-﻿using FallGuyStats.Data;
+﻿// FallGuyStats Copyright (c) Leah Lee. All rights reserved.
+// Licensed under the GNU General Public License v3.0
+// Please Consider supporting the developer with some good good coffee: ko-fi.com/lealeelu
+
+using FallGuyStats.Data;
 using FallGuyStats.Models;
 using FallGuyStats.Objects.DTOs;
 using FallGuyStats.Objects.Models.Views;
@@ -9,7 +13,7 @@ using System.Linq;
 
 namespace FallGuyStats.Repositories
 {
-    
+
     public class EpisodeRepository {
 
         private FallGuysContext _fallGuysContext;
