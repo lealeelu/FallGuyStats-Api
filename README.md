@@ -1,4 +1,5 @@
 # FallGuyStats-Api
+![OBS window. Stats showing on the upper left corner of the screen while playing fall guys.](https://github.com/lealeelu/FallGuyStats-Api/blob/media/StatsExample.png)
 The Backend API for the Fall Guy Stats App written in ASP.NET C# with EFCore.
 It watches the log file as you play for a DTO output in your player.log file, captures that DTO and adds it to the SQLite db.
 Has endpoints for Episodes, Rounds, and Stats.
