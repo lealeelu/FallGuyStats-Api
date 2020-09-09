@@ -28,6 +28,11 @@ namespace FallGuyStats.Tools
 
             try
             {
+                if (!File.Exists(playerLogDataPath))
+                {
+                    Console.WriteLine($"Couldn't find Player.log file in {playerLogDataPath}");
+                    return null;
+                }
                 using (FileStream fileStream = new FileStream(
                     playerLogDataPath,
                     FileMode.Open,

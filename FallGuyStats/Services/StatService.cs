@@ -54,7 +54,7 @@ namespace FallGuyStats.Services
                 // TODO add rounds since crown
                 RoundsSinceCrown = 0
             };
-            _logger.LogInformation($"Current Round: {LogParserV2.currentRound}");
+            //_logger.LogInformation($"Current Round: {LogParserV2.currentRound}");
             result.RoundStats = _episodeRepository.GetRoundStats(LogParserV2.currentRound);
             string readableRoundType;
             if (RoundEntity.RoundTypeMap.TryGetValue(LogParserV2.currentRound, out readableRoundType))
@@ -69,6 +69,7 @@ namespace FallGuyStats.Services
         public void CheckPlayerLog()
         {
             var newEpisodes = LogParserV2.GetEpisodesFromLog();
+            if (newEpisodes == null) return;
             foreach (var newEpisode in newEpisodes)
             {
                 //check timestamps against db to determine if it is actually a new episode
