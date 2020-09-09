@@ -14,6 +14,7 @@ using FallGuyStats.Controllers;
 using FallGuyStats.Repositories;
 using System.Collections.Generic;
 using FallGuyStats.Objects.Entities;
+using FallGuyStats.Objects.Models.Views;
 
 namespace FallGuyStats.Services
 {
@@ -40,9 +41,7 @@ namespace FallGuyStats.Services
                 CrownCount = todayStat?.CrownCount ?? 0,
                 EpisodeCount = todayStat?.EpisodeCount ?? 0,
                 // TODO add cheater count
-                CheaterCount = 0,
-                // TODO add rounds since crown
-                RoundsSinceCrown = 0
+                CheaterCount = 0
             };
             var seasonStat = _episodeRepository.GetSeasonStats(1);
             result.SeasonStats = new SessionStatDTO
@@ -50,12 +49,20 @@ namespace FallGuyStats.Services
                 CrownCount = seasonStat?.CrownCount ?? 0,
                 EpisodeCount = seasonStat?.EpisodeCount ?? 0,
                 // TODO add cheater count
-                CheaterCount = 0,
-                // TODO add rounds since crown
-                RoundsSinceCrown = 0
+                CheaterCount = 0
             };
             //_logger.LogInformation($"Current Round: {LogParserV2.currentRound}");
             result.RoundStats = _episodeRepository.GetRoundStats(LogParserV2.currentRound);
+            if (result.RoundStats == null) result.RoundStats = new RoundStatsDto
+            {
+                GoldCount = 0,
+                SilverCount = 0,
+                BronzeCount = 0,
+                QualifiedCount = 0,
+                NotQualifiedCount = 0,
+                RoundType = LogParserV2.currentRound
+            };
+            
             string readableRoundType;
             if (RoundEntity.RoundTypeMap.TryGetValue(LogParserV2.currentRound, out readableRoundType))
             {
