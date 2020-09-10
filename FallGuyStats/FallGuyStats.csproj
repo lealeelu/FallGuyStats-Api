@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <StartupObject>FallGuyStats.Program</StartupObject>
     <UserSecretsId>8c0ce6f3-6c75-4eee-b085-54be6b11e06a</UserSecretsId>
+    <Version>1.01</Version>
   </PropertyGroup>
 
   <ItemGroup>

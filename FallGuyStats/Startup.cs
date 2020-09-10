@@ -56,7 +56,7 @@ namespace FallGuyStats
 
             fallGuysContext.Database.EnsureCreated();
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
