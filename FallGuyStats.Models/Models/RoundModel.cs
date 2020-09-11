@@ -11,6 +11,10 @@ namespace FallGuyStats.Models
 {
     public class RoundModel
     {
+        public const string Gold = "gold";
+        public const string Silver = "silver";
+        public const string Bronze = "bronze";
+
         public int Id { get; set; }
         public int EpisodeId { get; set; }
         public string RoundType { get; set; }

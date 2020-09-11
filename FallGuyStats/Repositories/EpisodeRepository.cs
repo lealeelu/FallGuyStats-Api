@@ -18,6 +18,7 @@ namespace FallGuyStats.Repositories
 
         private FallGuysContext _fallGuysContext;
         private ILogger<EpisodeRepository> _logger;
+
         public EpisodeRepository(
             FallGuysContext fallGuysContext,
             ILogger<EpisodeRepository> logger
@@ -78,19 +79,20 @@ namespace FallGuyStats.Repositories
 
         public RoundStatsDto GetRoundStats(string roundName)
         {
-            return _fallGuysContext.Rounds
+            var roundStats = _fallGuysContext.Rounds
                 .Where(round => round.RoundType == roundName)
                 .GroupBy(r => r.RoundType)
                 .Select(s => new RoundStatsDto
                 {
                     RoundType = s.Key,
-                    GoldCount = s.Sum(r => r.Badge == "gold"? 1 : 0),
-                    SilverCount = s.Sum(r => r.Badge == "silver"? 1 : 0),
-                    BronzeCount = s.Sum(r => r.Badge == "bronze"? 1 : 0),
-                    QualifiedCount = s.Sum(r => r.Qualified? 1 : 0),
-                    NotQualifiedCount = s.Sum(r => r.Qualified? 0 : 1)
+                    GoldCount = s.Sum(r => r.Badge == RoundModel.Gold ? 1 : 0),
+                    SilverCount = s.Sum(r => r.Badge == RoundModel.Silver ? 1 : 0),
+                    BronzeCount = s.Sum(r => r.Badge == RoundModel.Bronze ? 1 : 0),
+                    QualifiedCount = s.Sum(r => r.Qualified ? 1 : 0),
+                    NotQualifiedCount = s.Sum(r => r.Qualified ? 0 : 1)
                 })
                 .FirstOrDefault();
+            return roundStats;
         }
 
         public StreakDto GetStreak()
