@@ -27,8 +27,19 @@ namespace FallGuyStats.Tools
         public static DateTime DateTimeParse(string s)
         {
             //example 23:21:39.384
-            DateTime dt = DateTime.Today;
-            return dt.AddHours(23).AddMinutes(21).AddSeconds(39);
+            DateTime dt;
+            try
+            {
+                dt = DateTime.Today
+                    .AddHours(IntParse(s.Substring(0, 2)))
+                    .AddMinutes(IntParse(s.Substring(3, 2)))
+                    .AddSeconds(IntParse(s.Substring(6, 2)));
+            }
+            catch
+            {
+                dt = DateTime.Now;
+            }
+            return dt;
         }
     }
 }
