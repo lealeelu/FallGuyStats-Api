@@ -4,6 +4,7 @@
 
 using NUnit.Framework;
 using FallGuyStats.Tools;
+using System;
 
 namespace UnitTests
 {
@@ -18,10 +19,12 @@ namespace UnitTests
         public void V2ParseTest()
         {
             var ep = LogParserV2.GetEpisodesFromLogString(logSample);
+            var expectedFinishDate = DateTime.Today.AddHours(23).AddMinutes(21).AddSeconds(39); 
             Assert.AreEqual(0, ep[0].Crowns);
             Assert.AreEqual(180, ep[0].Kudos);
             Assert.AreEqual(81, ep[0].Fame);
             Assert.IsNotNull(ep[0]);
+            Assert.AreEqual(ep[0].EpisodeFinished, expectedFinishDate);
         }
 
         const string logSample = @"23:21:39.384: == [CompletedEpisodeDto] ==

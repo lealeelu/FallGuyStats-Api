@@ -23,6 +23,7 @@ namespace FallGuyStats.Objects.Entities
         public int Season { get; set; }
         public List<RoundEntity> RoundEntities { get; set; }
 
+        [Obsolete("Use EpisodeFinished, since it is already parsed.")]
         public string Timestamp { get; set; }
 
         public DateTime EpisodeFinished { get; set; }

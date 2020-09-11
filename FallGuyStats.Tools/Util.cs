@@ -26,9 +26,9 @@ namespace FallGuyStats.Tools
 
         public static DateTime DateTimeParse(string s)
         {
-            DateTime dt;
-            if (DateTime.TryParse(s, out dt)) return dt;
-            else return DateTime.Now;
+            //example 23:21:39.384
+            DateTime dt = DateTime.Today;
+            return dt.AddHours(23).AddMinutes(21).AddSeconds(39);
         }
     }
 }
