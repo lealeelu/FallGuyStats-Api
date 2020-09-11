@@ -99,18 +99,24 @@ namespace FallGuyStats.Repositories
             try
             {
                 var lastEpisode = _fallGuysContext.Episodes
-                .OrderBy(e => e.EpisodeFinished)
-                .Last();
-                if (lastEpisode.Crowns > 0)
+                .OrderBy(e => e.Created)
+                .LastOrDefault();
+                if (lastEpisode == null)
                 {
                     result.Winning = true;
-                    var maxCreated = _fallGuysContext.Episodes
+                    result.Streak = 0;
+                }
+                else if (lastEpisode.Crowns > 0)
+                {
+                    result.Winning = true;
+                    var maxLossCreated = _fallGuysContext.Episodes
                         .Where(e => e.Crowns == 0)
                         .GroupBy(e => e.Crowns)
-                        .Select(s => s.Max(e => e.Created));
+                        .Select(s => s.Max(e => e.Created))
+                        .FirstOrDefault();
 
                     result.Streak = _fallGuysContext.Episodes
-                        .Where(e => e.Crowns == 1)
+                        .Where(e => e.Created > maxLossCreated)
                         .GroupBy(e => e.Crowns)
                         .Select(s => s.Count())
                         .FirstOrDefault();
@@ -118,13 +124,14 @@ namespace FallGuyStats.Repositories
                 else
                 {
                     result.Winning = false;
-                    var maxCreated = _fallGuysContext.Episodes
+                    var maxWinCreated = _fallGuysContext.Episodes
                         .Where(e => e.Crowns == 1)
                         .GroupBy(e => e.Crowns)
-                        .Select(s => s.Max(e => e.Created));
+                        .Select(s => s.Max(e => e.Created))
+                        .FirstOrDefault();
 
                     result.Streak = _fallGuysContext.Episodes
-                        .Where(e => e.Crowns == 0)
+                        .Where(e => e.Created > maxWinCreated)
                         .GroupBy(e => e.Crowns)
                         .Select(s => s.Count())
                         .FirstOrDefault();

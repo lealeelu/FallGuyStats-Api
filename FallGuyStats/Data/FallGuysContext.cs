@@ -12,7 +12,7 @@ namespace FallGuyStats.Data
     {
         public FallGuysContext (DbContextOptions<FallGuysContext> options) : base (options) {}
 
-        public DbSet<EpisodeModel> Episodes { get; set; }
-        public DbSet<RoundModel> Rounds { get; set; }
+        virtual public DbSet<EpisodeModel> Episodes { get; set; }
+        virtual public DbSet<RoundModel> Rounds { get; set; }
     }
 }
