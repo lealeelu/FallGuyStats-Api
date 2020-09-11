@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace FallGuyStats.Objects.Models.Views
+namespace FallGuyStats.Objects.DTOs
 {
     public class RoundStatsDto
     {

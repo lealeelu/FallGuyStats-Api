@@ -26,7 +26,8 @@ namespace UnitTests
         [Test]
         public void GetStreak_WhenWinning_ReturnsWinningStreakDto()
         {
-            var episodes = new List<EpisodeModel>()
+
+            var episodeRepository = BuildRepository(new List<EpisodeModel>()
             {
                 new EpisodeModel{Crowns = 0, Created = DateTime.Today.AddHours(1)},
                 new EpisodeModel{Crowns = 1, Created = DateTime.Today.AddHours(2)},
@@ -34,19 +35,7 @@ namespace UnitTests
                 new EpisodeModel{Crowns = 0, Created = DateTime.Today.AddHours(4)},
                 new EpisodeModel{Crowns = 1, Created = DateTime.Today.AddHours(5)},
                 new EpisodeModel{Crowns = 1, Created = DateTime.Today.AddHours(6)},
-            }.AsQueryable();
-            var mockSet = new Mock<DbSet<EpisodeModel>>();
-            mockSet.As<IQueryable<EpisodeModel>>().Setup(m => m.Provider).Returns(episodes.Provider);
-            mockSet.As<IQueryable<EpisodeModel>>().Setup(m => m.Expression).Returns(episodes.Expression);
-            mockSet.As<IQueryable<EpisodeModel>>().Setup(m => m.ElementType).Returns(episodes.ElementType);
-            mockSet.As<IQueryable<EpisodeModel>>().Setup(m => m.GetEnumerator()).Returns(episodes.GetEnumerator());
-
-            var options = new DbContextOptionsBuilder<FallGuysContext>()
-                    .Options;
-
-            var mockContext = new Mock<FallGuysContext>(options);
-            mockContext.Setup(m => m.Episodes).Returns(mockSet.Object);
-            var episodeRepository = new EpisodeRepository(mockContext.Object, _logger.Object);
+            }, null);
             var streakDto = episodeRepository.GetStreak();
             Assert.IsTrue(streakDto.Winning);
             Assert.AreEqual(streakDto.Streak, 2);
@@ -55,7 +44,7 @@ namespace UnitTests
         [Test]
         public void GetStreak_WhenLosing_ReturnsLosingStreakDto()
         {
-            var episodes = new List<EpisodeModel>()
+            var episodeRepository = BuildRepository(new List<EpisodeModel>()
             {
                 new EpisodeModel{Crowns = 0, Created = DateTime.Today},
                 new EpisodeModel{Crowns = 0, Created = DateTime.Today.AddHours(1)},
@@ -69,19 +58,7 @@ namespace UnitTests
                 new EpisodeModel{Crowns = 0, Created = DateTime.Today.AddHours(9)},
                 new EpisodeModel{Crowns = 0, Created = DateTime.Today.AddHours(10)},
 
-            }.AsQueryable();
-            var mockSet = new Mock<DbSet<EpisodeModel>>();
-            mockSet.As<IQueryable<EpisodeModel>>().Setup(m => m.Provider).Returns(episodes.Provider);
-            mockSet.As<IQueryable<EpisodeModel>>().Setup(m => m.Expression).Returns(episodes.Expression);
-            mockSet.As<IQueryable<EpisodeModel>>().Setup(m => m.ElementType).Returns(episodes.ElementType);
-            mockSet.As<IQueryable<EpisodeModel>>().Setup(m => m.GetEnumerator()).Returns(episodes.GetEnumerator());
-
-            var options = new DbContextOptionsBuilder<FallGuysContext>()
-                    .Options;
-
-            var mockContext = new Mock<FallGuysContext>(options);
-            mockContext.Setup(m => m.Episodes).Returns(mockSet.Object);
-            var episodeRepository = new EpisodeRepository(mockContext.Object, _logger.Object);
+            }, null);
             var streakDto = episodeRepository.GetStreak();
             Assert.IsFalse(streakDto.Winning);
             Assert.AreEqual( 4, streakDto.Streak);
@@ -97,7 +74,7 @@ namespace UnitTests
         }
 
         [Test]
-        public void GetRoundStats_WhenNoStats_ReturnDefault()
+        public void GetRoundStats_WhenMixedStats_ReturnCorrectCounts()
         {
             var roundType = "testRound";
             var notRoundType = "nottestRound";
@@ -122,6 +99,42 @@ namespace UnitTests
             Assert.AreEqual(1, roundStats.BronzeCount);
             Assert.AreEqual(6, roundStats.QualifiedCount);
             Assert.AreEqual(2, roundStats.NotQualifiedCount);
+        }
+
+        [Test]
+        public void GetRoundStats_WhenNoStats_ReturnDefault()
+        {
+            var roundType = "testRound";
+            var repo = BuildRepository(null, null);
+            var roundStats = repo.GetRoundStats(roundType);
+            Assert.AreEqual(0, roundStats.GoldCount);
+            Assert.AreEqual(0, roundStats.SilverCount);
+            Assert.AreEqual(0, roundStats.BronzeCount);
+            Assert.AreEqual(0, roundStats.QualifiedCount);
+            Assert.AreEqual(0, roundStats.NotQualifiedCount);
+        }
+
+        [Test]
+        public void GetRoundStats_WhenOnlyWrongStats_ReturnDefault()
+        {
+            var roundType = "testRound";
+            var notRoundType = "nottestRound";
+            var repo = BuildRepository(null,
+                new List<RoundModel>()
+                {
+                    new RoundModel(){RoundType = notRoundType, Badge = RoundModel.Gold, Qualified = true},
+                    new RoundModel(){RoundType = notRoundType, Badge = RoundModel.Bronze, Qualified = true},
+                    new RoundModel(){RoundType = notRoundType, Badge = null, Qualified = false},
+                    new RoundModel(){RoundType = notRoundType, Badge = RoundModel.Gold, Qualified = true},
+                    new RoundModel(){RoundType = notRoundType, Badge = RoundModel.Bronze, Qualified = true},
+                    new RoundModel(){RoundType = notRoundType, Badge = null, Qualified = false},
+                });
+            var roundStats = repo.GetRoundStats(roundType);
+            Assert.AreEqual(0, roundStats.GoldCount);
+            Assert.AreEqual(0, roundStats.SilverCount);
+            Assert.AreEqual(0, roundStats.BronzeCount);
+            Assert.AreEqual(0, roundStats.QualifiedCount);
+            Assert.AreEqual(0, roundStats.NotQualifiedCount);
         }
 
         private EpisodeRepository BuildRepository(List<EpisodeModel> episodeData = null, List<RoundModel> roundData = null)

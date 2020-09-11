@@ -92,6 +92,18 @@ namespace FallGuyStats.Repositories
                     NotQualifiedCount = s.Sum(r => r.Qualified ? 0 : 1)
                 })
                 .FirstOrDefault();
+            if (roundStats == null)
+            {
+                roundStats = new RoundStatsDto()
+                {
+                    RoundType = roundName,
+                    GoldCount = 0,
+                    SilverCount = 0,
+                    BronzeCount = 0,
+                    QualifiedCount = 0,
+                    NotQualifiedCount = 0
+                };
+            }
             return roundStats;
         }
 
