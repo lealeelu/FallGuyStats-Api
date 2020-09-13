@@ -8,21 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Angular\e2e\**" />
-    <Compile Remove="Angular\in_progress_assets\**" />
-    <Compile Remove="Angular\out-tsc\**" />
-    <Compile Remove="Interfaces\**" />
-    <Content Remove="Angular\e2e\**" />
-    <Content Remove="Angular\in_progress_assets\**" />
-    <Content Remove="Angular\out-tsc\**" />
-    <Content Remove="Interfaces\**" />
-    <EmbeddedResource Remove="Angular\e2e\**" />
-    <EmbeddedResource Remove="Angular\in_progress_assets\**" />
-    <EmbeddedResource Remove="Angular\out-tsc\**" />
-    <EmbeddedResource Remove="Interfaces\**" />
-    <None Remove="Angular\e2e\**" />
-    <None Remove="Angular\in_progress_assets\**" />
-    <None Remove="Angular\out-tsc\**" />
     <None Remove="Interfaces\**" />
   </ItemGroup>
 
@@ -64,18 +49,6 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Angular\e2e\protractor.conf.js" />
-    <None Remove="Angular\e2e\src\app.e2e-spec.ts" />
-    <None Remove="Angular\e2e\src\app.po.ts" />
-    <None Remove="Angular\e2e\tsconfig.json" />
-    <None Remove="Angular\in_progress_assets\hexagon-icon.clip" />
-    <None Remove="Angular\out-tsc\e2e\app.e2e-spec.js" />
-    <None Remove="Angular\out-tsc\e2e\app.e2e-spec.js.map" />
-    <None Remove="Angular\out-tsc\e2e\app.po.js" />
-    <None Remove="Angular\out-tsc\e2e\app.po.js.map" />
-  </ItemGroup>
-
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">
@@ -104,19 +77,4 @@
     </ItemGroup>
   </Target>
   
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <TypeScriptTarget>ES2015</TypeScriptTarget>
-    <TypeScriptJSXEmit>React</TypeScriptJSXEmit>
-    <TypeScriptModuleKind>ES6</TypeScriptModuleKind>
-    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
-    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
-    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
-    <TypeScriptOutFile />
-    <TypeScriptOutDir />
-    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
-    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
-    <TypeScriptSourceMap>True</TypeScriptSourceMap>
-    <TypeScriptMapRoot />
-    <TypeScriptSourceRoot />
-  </PropertyGroup>
 </Project>

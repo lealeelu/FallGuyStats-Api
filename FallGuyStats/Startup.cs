@@ -14,6 +14,7 @@ using Microsoft.Extensions.FileProviders;
 using FallGuyStats.Services;
 using FallGuyStats.Repositories;
 using Microsoft.AspNetCore.StaticFiles;
+using System.IO;
 
 namespace FallGuyStats
 {
@@ -74,13 +75,8 @@ namespace FallGuyStats
                 endpoints.MapControllers();
             });
 
-            /*
-            var provider = new FileExtensionContentTypeProvider();
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                ContentTypeProvider = provider
-            });
-            */
+            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
 
             app.UseSpa(spa =>
             {
