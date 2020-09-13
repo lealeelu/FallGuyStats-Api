@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,6 +13,7 @@ using FallGuyStats.Data;
 using Microsoft.Extensions.FileProviders;
 using FallGuyStats.Services;
 using FallGuyStats.Repositories;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace FallGuyStats
 {
@@ -43,7 +45,10 @@ namespace FallGuyStats
                     .AllowAnyHeader();
                 });
             });
-            
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "Angular/dist";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +72,27 @@ namespace FallGuyStats
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            /*
+            var provider = new FileExtensionContentTypeProvider();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                ContentTypeProvider = provider
+            });
+            */
+
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                spa.Options.SourcePath = "Angular";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
             });
         }
     }

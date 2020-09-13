@@ -1,0 +1,8 @@
+{
+    "apiUrl": "http://localhost:5000/api/Stats",
+    "pollingFrequency": 10000,
+    "showLastEpisode": false,
+    "showCheaterCount": false,
+    "showLosingStreak": true,
+    "showCredits": true
+}

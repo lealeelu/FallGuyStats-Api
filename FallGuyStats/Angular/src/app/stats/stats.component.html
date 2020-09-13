@@ -1,0 +1,55 @@
+<div *ngIf="stats$ | async as stats" class="sidebar">
+    <h1>Fall Guy Stats</h1>
+    <p *ngIf="showCredits" class="byline">by @lealeelu and @leekydesu</p>
+    <div class="content-block today-win-rate">
+        <h2>Today</h2>
+        <p>{{stats.todayStats.crownCount}} crowns / {{stats.todayStats.episodeCount}} episodes</p>
+        <p>Winrate {{todayWinrate}}%</p>
+        <p *ngIf="showCheaterCount">Cheaters: {{stats.todayStats.cheaterCount}}</p>
+    </div>
+    <div class="content-block season-win-rate">
+        <h2>Season</h2>
+        <p>{{stats.seasonStats.crownCount}} crowns / {{stats.seasonStats.episodeCount}} episodes</p>
+        <p>Winrate {{seasonWinrate}}%</p>
+        <p *ngIf="stats.streak.winning">Current Winning Streak: {{stats.streak.streak}}</p>
+        <p *ngIf="!stats.streak.winning && showLosingStreak">Current Losing Streak: {{stats.streak.streak}}</p>
+        <p *ngIf="showCheaterCount">Cheaters: {{stats.seasonStats.cheaterCount}}</p>
+    </div>
+    <div *ngIf="stats.currentRound" class="content-block current-round">
+        <h2>{{stats.currentRound}}</h2>
+        <div class="icon-row">
+            <div class="badge">
+                <div class="icon icon-hexagon icon-gold"></div>
+                <div class="badge-number">{{stats.roundStats.goldCount || 0}}</div>
+            </div>
+            <div class="badge">
+                <div class="icon icon-hexagon icon-silver"></div>
+                <div class="badge-number">{{stats.roundStats.silverCount || 0}}</div>
+            </div>
+            <div class="badge">
+                <div class="icon icon-hexagon icon-bronze"></div>
+                <div class="badge-number">{{stats.roundStats.bronzeCount || 0}}</div>
+            </div>
+            <div class="badge">
+                <div class="icon icon-hexagon icon-pass"></div>
+                <div class="badge-number">{{stats.roundStats.qualifiedCount || 0}}</div>
+            </div>
+            <div class="badge">
+                <div class="icon icon-hexagon icon-fail"></div>
+                <div class="badge-number">{{stats.roundStats.notQualifiedCount || 0}}</div>
+            </div>
+        </div>
+    </div>
+    <div *ngElse class="content-block"></div>
+    <div *ngIf="showLastEpisode">
+        <h2>Last Episode</h2>
+        <p></p>Crowns: {{lastEpisode.Fame}}
+        
+        <h2>Rounds</h2>
+        <div *ngFor="let round of lastEpisode.Rounds; index as i">
+            <p></p>Round {{i}} : {{round.roundCode}} ----------
+            <p></p>Qualified: {{round.qualified}}
+        </div>
+    </div>
+</div>
+
