@@ -37,7 +37,7 @@ export class StatsComponent implements OnInit {
 
   ngOnInit(): void {
     this.stats$ = this.statService.getStats().pipe(
-      tap((stats) => {
+      tap((stats: StatResponse) => {
         //episode
         if (stats.todayStats.episodeCount > 0)
           this.todayWinrate = (stats.todayStats.crownCount/stats.todayStats.episodeCount * 100).toFixed(2)
@@ -46,9 +46,9 @@ export class StatsComponent implements OnInit {
         if (stats.seasonStats.episodeCount > 0)
           this.seasonWinrate = (stats.seasonStats.crownCount/stats.seasonStats.episodeCount * 100).toFixed(2)
         else this.seasonWinrate = '0'
-        if (stats.roundStats && stats.roundStats.QualifiedCount > 0) {
-          stats.roundStats.QualifiedCount -= stats.roundStats.GoldCount
-            + stats.roundStats.SilverCount + stats.roundStats.BronzeCount
+        if (stats.roundStats && stats.roundStats.qualifiedCount > 0) {
+          stats.roundStats.qualifiedCount -= stats.roundStats.goldCount
+            + stats.roundStats.silverCount + stats.roundStats.bronzeCount
         }
       }));
   }

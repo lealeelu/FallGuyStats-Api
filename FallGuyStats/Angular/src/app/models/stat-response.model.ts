@@ -6,12 +6,12 @@ export class SessionStat {
 }
 
 export class RoundStats {
-    public RoundType: string
-    public GoldCount: number 
-    public SilverCount: number 
-    public BronzeCount: number 
-    public QualifiedCount: number 
-    public NotQualifiedCount: number 
+    public roundType: string
+    public goldCount: number
+    public silverCount: number
+    public bronzeCount: number
+    public qualifiedCount: number
+    public notQualifiedCount: number
 }
 
 export class StatResponse {
