@@ -5,7 +5,7 @@ It watches the log file as you play for a DTO output in your player.log file, ca
 Has endpoints for Episodes, Rounds, and Stats.
 
 # Getting Started
-1. Download the [latest relase](https://github.com/lealeelu/FallGuyStats-Api/releases) FallGuyStats_v.x.xx.zip file under assets.
+1. Download the [latest release](https://github.com/lealeelu/FallGuyStats-Api/releases) FallGuyStats_v.x.xx.zip file under assets.
 2. Unzip the file to somewhere you'll remember it.
 3. Inside the zip folder, double click on FallGuyStats.exe.
 4. Open up a browser and navigate to http://localhost:5000
