@@ -15,7 +15,7 @@ Has endpoints for Episodes, Rounds, and Stats.
 8. Play Fall guys and watch the stats rack up!
 
 # Need help?
-Tweet or message me on [twitter](twitter.com/lealeelu) or create a bug in the issues section if you found something that isn't working as it should.
+Tweet or message me on [twitter](https://twitter.com/lealeelu) or create a bug in the issues section if you found something that isn't working as it should.
 
 # Contributing to FallGuyStats-Api
 ### Are you a developer?
