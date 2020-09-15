@@ -1,0 +1,116 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Roboto')
+@import url('https://fonts.googleapis.com/css2?family=Titan+One')
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans')
+
+@font-face 
+    font-family: 'boldenvan'
+    src: url('assets/fonts/boldenvan/Boldenvan.ttf') format('truetype')
+
+@font-face 
+    font-family: 'rolling'
+    src: url('assets/fonts/rolling-no-one/RollingNoOne-ExtraBold.ttf')
+
+@import 'variables', 'mixins'
+
+#wrapper
+    position: absolute
+    top: 0
+    right: 0
+    left: 0
+    margin: 0 auto
+
+body
+    background-color: #FFFFFF00
+    margin: 0
+    font-family: "Open Sans"
+    color: white
+    
+h1
+    @include headers
+    margin-block-start: 0
+    margin-block-end: 5px
+    padding: 8px 0 18px 15px
+    border-radius: 0 30px 30px 0
+    border: 8px solid white
+    border-left-width: 0
+    width: 110%
+h2
+    @include headers
+    padding: 2px 0 10px 10px
+    margin-block-start: 5px
+    margin-block-end: 5px
+p
+    //font-variant-caps: all-small-caps
+    padding-left:15px    
+    margin-block-start: 0em
+    margin-block-end: 0em
+    font-size: 20px
+    font-weight: bold
+    letter-spacing: 1px
+
+.sidebar
+    //background-color: $transparent-gray
+    width: 320px
+    height: 100%
+    //padding: 0px 0px 20px 30px
+    background-color: $party-purple
+    border: 8px solid white
+    border-radius: 0 30px 30px 0
+    border-color: white
+    border-width: 0px 8px 8px 0
+
+//.content-block
+
+.badge
+    display: inline-flex
+
+.byline
+    font-size: 18px
+
+//.today-win-rate
+
+//.season-win-rate
+
+//.rounds-since-crown
+
+.icon
+    display: inline-block
+    
+.current-round
+    vertical-align: top
+    
+.icon-row 
+    padding: 2px 10px 10px 10px
+
+.badge-number
+    //padding-right: 8px
+    //margin-left: 40px
+    //margin-bottom: 5px
+    padding: 5px
+    padding-right: 10px
+    font-size: 28px
+    display: inline-block
+    font-weight: bold
+
+.icon-hexagon
+    background-size: contain
+    background-repeat: no-repeat
+    height: 50px
+    width: 50px
+    
+.icon-crown
+    background-image: url('assets/img/gold.png')
+    
+.icon-gold
+    background-image: url('assets/img/gold.png')
+.icon-silver
+    background-image: url('assets/img/silver.png')
+.icon-bronze
+    background-image: url('assets/img/bronze.png')
+
+.icon-pass
+   background-image: url('assets/img/passed.png')
+.icon-fail
+    background-image: url('assets/img/failed.png')
+

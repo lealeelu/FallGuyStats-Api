@@ -1,0 +1,22 @@
+<h2>Admin Console</h2>
+<div class="admin-wrapper">
+    <form>
+      <div class="form-group form-check">
+        <input type="checkbox"
+          [checked]="showLosingStreak"
+          (change)="updateConfig($event)"
+          class="form-check-input"
+          id="showLosingStreak">
+        <label class="form-check-label" for="showLosingStreak">Show Losing Streak</label>
+      </div>
+      <div class="form-group form-check">
+        <input type="checkbox"
+        [checked]="showCredits"
+        (change)="updateConfig($event)"
+        class="form-check-input"
+        id="showCredits">
+        <label class="form-check-label" for="showCredits">Show Credits</label>
+      </div>
+    </form>
+</div>
+
