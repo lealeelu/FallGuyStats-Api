@@ -6,7 +6,7 @@ using System;
 
 namespace FallGuyStats.Tools
 {
-    public static class Util
+    public static class ParseUtil
     {
         public static int IntParse(string s, int defaultValue = 0)
         {

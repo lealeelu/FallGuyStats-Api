@@ -4,7 +4,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using FallGuyStats.Models;
-using FallGuyStats.Objects.Models.Views;
+using FallGuyStats.Objects.Models;
 
 namespace FallGuyStats.Data
 {
@@ -14,5 +14,7 @@ namespace FallGuyStats.Data
 
         virtual public DbSet<EpisodeModel> Episodes { get; set; }
         virtual public DbSet<RoundModel> Rounds { get; set; }
+        virtual public DbSet<UserSettingsModel> UserSettings { get; set; }
+
     }
 }

@@ -10,11 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using FallGuyStats.Data;
-using Microsoft.Extensions.FileProviders;
 using FallGuyStats.Services;
 using FallGuyStats.Repositories;
-using Microsoft.AspNetCore.StaticFiles;
-using System.IO;
 
 namespace FallGuyStats
 {
@@ -60,9 +57,7 @@ namespace FallGuyStats
                 app.UseDeveloperExceptionPage();
             }
 
-            fallGuysContext.Database.EnsureCreated();
-
-            //app.UseHttpsRedirection();
+            fallGuysContext.Database.Migrate();
 
             app.UseRouting();
 

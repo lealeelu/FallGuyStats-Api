@@ -5,16 +5,11 @@
 using FallGuyStats.Models;
 using Microsoft.Extensions.Logging;
 using FallGuyStats.Tools;
-using FallGuyStats.Data;
-using Microsoft.EntityFrameworkCore.Internal;
-using System.Linq;
 using System;
 using FallGuyStats.Objects.DTOs;
-using FallGuyStats.Controllers;
 using FallGuyStats.Repositories;
 using System.Collections.Generic;
 using FallGuyStats.Objects.Entities;
-using FallGuyStats.Objects.Models.Views;
 
 namespace FallGuyStats.Services
 {

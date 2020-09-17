@@ -78,10 +78,10 @@ namespace FallGuyStats.Tools
                 {
                     var ep = new EpisodeEntity();
                     ep.Timestamp = epMatch.Groups["finishedDate"].Value ?? "";
-                    ep.EpisodeFinished = Util.DateTimeParse(ep.Timestamp);
-                    ep.Kudos = Util.IntParse(epMatch.Groups["episodeKudos"].Value);
-                    ep.Crowns = Util.IntParse(epMatch.Groups["crowns"].Value);
-                    ep.Fame = Util.IntParse(epMatch.Groups["episodeFame"].Value);
+                    ep.EpisodeFinished = ParseUtil.DateTimeParse(ep.Timestamp);
+                    ep.Kudos = ParseUtil.IntParse(epMatch.Groups["episodeKudos"].Value);
+                    ep.Crowns = ParseUtil.IntParse(epMatch.Groups["crowns"].Value);
+                    ep.Fame = ParseUtil.IntParse(epMatch.Groups["episodeFame"].Value);
                     string roundString;
                     if (i + 1 < matches.Count)
                         roundString = logString.Substring(epMatch.Index, matches[i + 1].Index - epMatch.Index);
@@ -105,13 +105,13 @@ namespace FallGuyStats.Tools
                 if (roundMatch.Success)
                 {
                     round.RoundType = roundMatch.Groups["roundName"].Value ?? string.Empty;
-                    round.Qualified = Util.BoolParse(roundMatch.Groups["qualified"].Value);
-                    round.Position = Util.IntParse(roundMatch.Groups["position"].Value);
-                    round.Kudos = Util.IntParse(roundMatch.Groups["kudos"].Value);
-                    round.Fame = Util.IntParse(roundMatch.Groups["fame"].Value);
-                    round.BonusTier = Util.IntParse(roundMatch.Groups["bonusTier"].Value);
-                    round.BonusKudos = Util.IntParse(roundMatch.Groups["bonusKudos"].Value);
-                    round.BonusFame = Util.IntParse(roundMatch.Groups["bonusFame"].Value);
+                    round.Qualified = ParseUtil.BoolParse(roundMatch.Groups["qualified"].Value);
+                    round.Position = ParseUtil.IntParse(roundMatch.Groups["position"].Value);
+                    round.Kudos = ParseUtil.IntParse(roundMatch.Groups["kudos"].Value);
+                    round.Fame = ParseUtil.IntParse(roundMatch.Groups["fame"].Value);
+                    round.BonusTier = ParseUtil.IntParse(roundMatch.Groups["bonusTier"].Value);
+                    round.BonusKudos = ParseUtil.IntParse(roundMatch.Groups["bonusKudos"].Value);
+                    round.BonusFame = ParseUtil.IntParse(roundMatch.Groups["bonusFame"].Value);
                     round.Badge = roundMatch.Groups["badge"].Value ?? string.Empty;
                     results.Add(round);
                 }

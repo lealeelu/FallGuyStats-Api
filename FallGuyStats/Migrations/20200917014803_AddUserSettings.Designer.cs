@@ -9,18 +9,16 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FallGuyStats.Migrations
 {
     [DbContext(typeof(FallGuysContext))]
-    [Migration("20200904162026_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20200917014803_AddUserSettings")]
+    partial class AddUserSettings
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            try
-            {
-                modelBuilder
+            modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.7");
 
-                modelBuilder.Entity("FallGuyStats.Models.EpisodeModel", b =>
+            modelBuilder.Entity("FallGuyStats.Models.EpisodeModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -52,7 +50,7 @@ namespace FallGuyStats.Migrations
                     b.ToTable("Episodes");
                 });
 
-                modelBuilder.Entity("FallGuyStats.Models.RoundModel", b =>
+            modelBuilder.Entity("FallGuyStats.Models.RoundModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -92,12 +90,26 @@ namespace FallGuyStats.Migrations
 
                     b.ToTable("Rounds");
                 });
-            }
-            catch
-            {
-                Console.WriteLine("reapplied Initial Migration");
-            }
-            
+
+            modelBuilder.Entity("FallGuyStats.Objects.Models.UserSettingsModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("ShowCredits")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("ShowLastEpisode")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("ShowLosingStreak")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserSettings");
+                });
 #pragma warning restore 612, 618
         }
     }
