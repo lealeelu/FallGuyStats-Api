@@ -1,8 +1,8 @@
 export class Config {
-    public apiUrl : string
-    public pollingFrequency : number 
-    public showLastEpisode : boolean
-    public showCheaterCount : boolean
-    public showLosingStreak : boolean
-    public showCredits : boolean
+    public id: number
+    public pollingFrequency: number
+    public showLastEpisode: boolean
+    public showLosingStreak: boolean
+    public showCheaterCount: boolean
+    public showCredits: boolean
 }

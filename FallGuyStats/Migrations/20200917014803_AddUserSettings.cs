@@ -12,6 +12,8 @@ namespace FallGuyStats.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    PollingFrequency = table.Column<int>(nullable: false),
+                    ShowCheaterCount = table.Column<bool>(nullable: false),                    
                     ShowLastEpisode = table.Column<bool>(nullable: false),
                     ShowLosingStreak = table.Column<bool>(nullable: false),
                     ShowCredits = table.Column<bool>(nullable: false)

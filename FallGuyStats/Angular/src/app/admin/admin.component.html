@@ -1,22 +1,29 @@
 <h2>Admin Console</h2>
-<div class="admin-wrapper">
-    <form>
+<div class="admin-wrapper">    
+    <form (ngSubmit)="saveConfig()" #configForm="ngForm">
+      <div class="form-group form-check">        
+        <input type="number" class="form-control" id="pollingFrequency" [(ngModel)]="config.pollingFrequency" name="pollingFrequency" #pollingFrequency="ngModel" required> 
+        <label for="pollingFrequency">Polling Frequency (in milliseconds)</label>
+        <div [hidden]="pollingFrequency.valid || pollingFrequency.pristine" class="alert alert-danger">Polling Frequency Required</div>
+      </div>
       <div class="form-group form-check">
-        <input type="checkbox"
-          [checked]="showLosingStreak"
-          (change)="updateConfig($event)"
-          class="form-check-input"
-          id="showLosingStreak">
+        <input type="checkbox" class="form-check-input" id="showLosingStreak" [(ngModel)]="config.showLosingStreak" name="showLosingStreak" required>
         <label class="form-check-label" for="showLosingStreak">Show Losing Streak</label>
       </div>
-      <div class="form-group form-check">
-        <input type="checkbox"
-        [checked]="showCredits"
-        (change)="updateConfig($event)"
-        class="form-check-input"
-        id="showCredits">
+      <div class="form-group form-check">        
+        <input type="checkbox" class="form-check-input" id="showCredits" [(ngModel)]="config.showCredits" name="showCredits">
         <label class="form-check-label" for="showCredits">Show Credits</label>
       </div>
+      <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="showLastEpisode" [(ngModel)]="config.showLastEpisode" name="showLastEpisode">
+        <label class="form-check-label" for="showLastEpisode">Show Last Episode</label>
+      </div>
+      <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="showCheaterCount" [(ngModel)]="config.showCheaterCount" name="showCheaterCount">
+        <label class="form-check-label" for="showCheaterCount">Show Cheater Count</label>
+      </div>
+      <div class="actions">
+        <button type="submit" color="primary" [disabled]="!configForm.form.valid" value="submit">Save Config</button>        
+    </div>
     </form>
 </div>
-

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { StatResponse, RoundStats } from '../models/stat-response.model'
-import { Observable} from 'rxjs';
+import { Observable} from 'rxjs'
 import { StatService } from '../services/stat.service'
-import { tap, distinctUntilChanged } from 'rxjs/operators';
-import { ConfigService } from '../services/config.service';
+import { tap, distinctUntilChanged } from 'rxjs/operators'
+import { ConfigService } from '../services/config.service'
 
 @Component({
   selector: 'app-stats',
@@ -18,7 +18,7 @@ export class StatsComponent implements OnInit {
 
   showLastEpisode: boolean
   showCheaterCount: boolean
-  showLosingStreak: boolean 
+  showLosingStreak: boolean
   showCredits: boolean
 
   constructor(
@@ -38,18 +38,21 @@ export class StatsComponent implements OnInit {
   ngOnInit(): void {
     this.stats$ = this.statService.getStats().pipe(
       tap((stats: StatResponse) => {
-        //episode
-        if (stats.todayStats.episodeCount > 0)
-          this.todayWinrate = (stats.todayStats.crownCount/stats.todayStats.episodeCount * 100).toFixed(2)
-        else
+        // episode
+        if (stats.todayStats.episodeCount > 0) {
+          this.todayWinrate = (stats.todayStats.crownCount / stats.todayStats.episodeCount * 100).toFixed(2)
+        }
+        else {
           this.todayWinrate = '0'
-        if (stats.seasonStats.episodeCount > 0)
-          this.seasonWinrate = (stats.seasonStats.crownCount/stats.seasonStats.episodeCount * 100).toFixed(2)
-        else this.seasonWinrate = '0'
+        }
+        if (stats.seasonStats.episodeCount > 0) {
+          this.seasonWinrate = (stats.seasonStats.crownCount / stats.seasonStats.episodeCount * 100).toFixed(2)
+        }
+        else { this.seasonWinrate = '0' }
         if (stats.roundStats && stats.roundStats.qualifiedCount > 0) {
           stats.roundStats.qualifiedCount -= stats.roundStats.goldCount
             + stats.roundStats.silverCount + stats.roundStats.bronzeCount
         }
-      }));
+      }))
   }
 }

@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-};
+  configAPI: 'http://localhost:5000/api/UserSettings/1',
+  settingAPI: 'http://localhost:5000/api/Stats'
+}
 
 /*
  * For easier debugging in development mode, you can import the following file

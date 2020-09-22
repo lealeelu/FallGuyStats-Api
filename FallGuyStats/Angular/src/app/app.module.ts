@@ -8,9 +8,10 @@ import { AppRoutingModule } from './app-routing.module'
 import { AdminComponent } from './admin/admin.component'
 import { ConfigService } from './services/config.service'
 import { APP_BASE_HREF, LocationStrategy, HashLocationStrategy } from '@angular/common'
+import { FormsModule } from '@angular/forms'
 
 export const configFactory = (configService: ConfigService) => {
-  return () => configService.loadConfig();
+  return () => configService.loadConfig()
 }
 
 @NgModule({
@@ -22,7 +23,8 @@ export const configFactory = (configService: ConfigService) => {
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   bootstrap: [AppComponent],
   providers: [
@@ -32,8 +34,8 @@ export const configFactory = (configService: ConfigService) => {
       deps: [ConfigService],
       multi: true
     },
-    //{ provide: APP_BASE_HREF, useValue: './'},
-    //{ provide: LocationStrategy, useClass: HashLocationStrategy}
+    // { provide: APP_BASE_HREF, useValue: './'},
+    // { provide: LocationStrategy, useClass: HashLocationStrategy}
   ]
 })
 export class AppModule { }
